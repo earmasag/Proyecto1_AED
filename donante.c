@@ -12,6 +12,7 @@ Donante* buscar_cedula(Donante *cabeza, int buscarCedula){
 	}
 	return NULL;//si no encuentra retorna null
 }
+//delimitadores usar para archivos
 
 void agregarDonante(Donante **cabeza,char *nombreNuevo,int cedulaNueva,char *direccionNueva,Donaciones *pDonaciones){//funcion para agregar un nodo a la lista
 	Donante *nuevoDonante = malloc(sizeof(Donante));//creando un nuevo nodo y asignando memoria
@@ -24,15 +25,21 @@ void agregarDonante(Donante **cabeza,char *nombreNuevo,int cedulaNueva,char *dir
 }
 void mostrarLista(Donante *cabeza) {
     Donante *actual = cabeza;
+    
     while (actual != NULL) {
-        printf("%s",actual->nombre);  // Esta funcion es temporal sirve para verificar que los datos se guarden correctamente
-        printf("%d\n",actual->cedula);
-        printf("%s\n",actual->direccion);
-        printf("%s\n",actual->pDonaciones);
+        printf("---%s ---> %d ---> %s --->", actual->nombre,actual->cedula,actual->direccion);        
+        // Mostrar las donaciones
+        Donaciones *donacionActual = actual->pDonaciones;
+        while (donacionActual != NULL) {
+            printf("%s ---> %s ---> %s ---> %s ", donacionActual->fecha,donacionActual->tipo,donacionActual->descripcion,donacionActual->valor);
+            donacionActual = donacionActual->next;
+        }
+        
+        printf("\n");
         actual = actual->next;
     }
-    
 }
+
 void registrarDonante() {
     int i=0;
     Donante *p=malloc(sizeof(Donante)*100);//creando un puntero a mi estructura y asignando memoria 
@@ -68,22 +75,35 @@ void registrarDonacion() {
     Donante *newDonante = buscar_cedula(cabecera,cedula_registrada);
     if (newDonante!=0){
     	Donaciones *d = malloc(sizeof(Donaciones)*100);
-    	/*typedef struct donaciones{
-		char *fecha;
-		char *tipo;
-		char *descripcion;
-		char *valor;*/
-		
+    	printf("Bienvenido\n");
+    	d->fecha=malloc(sizeof(char)*100);
+    	while ((getchar()) != '\n');
+    	printf("Ingrese la fecha de hoy: ");
+    	fgets(d->fecha,100,stdin);
+    	d->tipo = malloc(sizeof(char)*100);
+    	printf("Que tipo de donacion es la que va a realizar?: ");
+    	fgets(d->tipo,100,stdin);
+    	d->descripcion = malloc(sizeof(char)*100);
+    	printf("Ingrese la descripcion de su objeto(opcional): ");
+    	fgets(d->descripcion,100,stdin);
+    	d->valor = malloc(sizeof(char)*100);
+    	printf("Ingrese el valor de su donacion: ");
+    	fgets(d->valor,100,stdin);
+    	newDonante->pDonaciones = d; // Asigna la estructura Donaciones al puntero pDonaciones del donante
+    	mostrarLista(cabecera);
     	getchar();
+    	
 	}
     else{
-    	printf("Lo siento mucho usted no puede donar..., por favor registrese antes de donar.");
+    	printf("Lo siento mucho usted no puede donar..., por favor registrese antes de donar.\n");
+    	while((getchar()) != '\n');
     	getchar();
+    	system("cls");
+    	
 	}
-	system("cls");//cambiar cuando se cambie a linux ya que en linux el comando es clear
+
 }
 
 void salir() {
     printf("Saliendo del sistema.\n");
 }
-
