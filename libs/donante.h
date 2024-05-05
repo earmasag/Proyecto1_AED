@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
+
 typedef struct donaciones{
 	char *fecha;
 	char *tipo;
@@ -18,10 +21,12 @@ typedef struct donante{
 	struct donante *next;
 }Donante;
 
-void registrarDonante();
+
+
+Donante* registrarDonante();
 void registrarDonacion();
 Donante* buscar_cedula(Donante *cabeza,int buscar_cedula);
-void agregarDonante(Donante **Cabeza,char *nombreNuevo,int cedula,char *direccion);
+Donante* agregarDonante(Donante *cabeza,Donante *nuevo_donante);
 void mostrarLista(Donante *cabeza);
 void salir();
 

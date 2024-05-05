@@ -8,8 +8,11 @@ CFLAGS = -c -I/libs
 programa: $(OBJS)
 	gcc -o $(BINARY) $(OBJS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $(DIR_OBJS)/$@
+$(DIR_OBJS)/main.o: main.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+$(DIR_OBJS)/donante.o: donante.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 clean: 
 	rm -f $(DIR_OBJS)/*.o programa

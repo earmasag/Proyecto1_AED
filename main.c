@@ -1,10 +1,11 @@
 // main.c
 #include "./libs/donante.h" //importar archivo cabecera
 
+Donante *cabeza = NULL;
 
 int main() {
     int opcion;
-
+    
     do {
     	printf("----------BIENVENIDO--AL-SISTEMA-DE-GESTION-DE-DONACIONES---------- \n");//case para las opciones de registro de donantes y donaciones
         printf("[1]. Registrar donante \n");
@@ -16,7 +17,7 @@ int main() {
 		system("clear");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
-                registrarDonante();
+                agregarDonante(cabeza,registrarDonante());
                 break;
             case 2:
                 registrarDonacion();
