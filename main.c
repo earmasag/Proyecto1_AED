@@ -1,5 +1,6 @@
 // main.c
-#include "donante.h" //importar archivo cabecera
+#include "./libs/donante.h" //importar archivo cabecera
+
 
 int main() {
     int opcion;
@@ -12,7 +13,7 @@ int main() {
         printf("Elige una opcion: \n");
         printf("------------------------------------------------------------------ \n");
         scanf("%d", &opcion);
-		system("cls");//comando de la libria de stdlib para limpiar la pantalla
+		system("clear");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
                 registrarDonante();

@@ -1,7 +1,9 @@
 // donante.c
-#include "donante.h"
+#include "./libs/donante.h"
+
 
 Donante *cabecera = NULL;//creando una lista vacia (se declara como variable global para que las funciones puedan acceder a la lista y modificarla)
+
 Donante* buscar_cedula(Donante *cabeza, int buscarCedula){
 	Donante *actual = cabeza;//variable para moverte por la lista
 	while (actual != NULL){
@@ -14,35 +16,23 @@ Donante* buscar_cedula(Donante *cabeza, int buscarCedula){
 }
 //delimitadores usar para archivos
 
-void agregarDonante(Donante **cabeza,char *nombreNuevo,int cedulaNueva,char *direccionNueva,Donaciones *pDonaciones){//funcion para agregar un nodo a la lista
-	Donante *nuevoDonante = malloc(sizeof(Donante));//creando un nuevo nodo y asignando memoria
+//funcion para agregar un nodo a la lista
+void agregarDonante(Donante **cabeza,char *nombreNuevo,int cedulaNueva,char *direccionNueva){
+	Donante *nuevoDonante = (Donante*)(sizeof(Donante));//creando un nuevo nodo y asignando memoria
 	nuevoDonante->nombre = nombreNuevo;
 	nuevoDonante->cedula = cedulaNueva;
 	nuevoDonante->direccion = direccionNueva;
-	nuevoDonante->pDonaciones = NULL;//asignando los campos a los nuevos nodos
 	nuevoDonante->next = *cabeza;//asignando la direccion de memoria del anterior nodo 
 	*cabeza=nuevoDonante;//colocando el nuevo nodo como cabeza
 }
+
 void mostrarLista(Donante *cabeza) {
-    Donante *actual = cabeza;
-    
-    while (actual != NULL) {
-        printf("---%s ---> %d ---> %s --->", actual->nombre,actual->cedula,actual->direccion);        
-        // Mostrar las donaciones
-        Donaciones *donacionActual = actual->pDonaciones;
-        while (donacionActual != NULL) {
-            printf("%s ---> %s ---> %s ---> %s ", donacionActual->fecha,donacionActual->tipo,donacionActual->descripcion,donacionActual->valor);
-            donacionActual = donacionActual->next;
-        }
-        
-        printf("\n");
-        actual = actual->next;
-    }
+
 }
 
 void registrarDonante() {
     int i=0;
-    Donante *p=malloc(sizeof(Donante)*100);//creando un puntero a mi estructura y asignando memoria 
+    Donante *p= (Donante*) malloc(sizeof(Donante)*100);//creando un puntero a mi estructura y asignando memoria 
 	
 	printf("Bienvenido nuevo donante!.\n");
     printf("Ingrese sus datos por favor!.\n");
@@ -60,11 +50,11 @@ void registrarDonante() {
 	while ((getchar()) != '\n');
 	printf("Ingrese su direcion: ");
 	fgets(p[i].direccion,100,stdin);
-	agregarDonante(&cabecera,p[i].nombre,p[i].cedula,p[i].direccion,p[i].pDonaciones);//agregando el donante a la lista
+	agregarDonante(&cabecera,p[i].nombre,p[i].cedula,p[i].direccion);//agregando el donante a la lista
 	printf("Donante registrado con exito!.");
 	i++;//se incrementa el indicie para un futuro registro tengo pensado crear una funcion y dependiendo del archivo incrementar el indice pero mas adelante
 	getchar();//se pausa hasta que se presione una tecla
-	system("cls");//limpia la pantalla
+	system("clear");//limpia la pantalla
 }
 
 void registrarDonacion() {
@@ -89,7 +79,6 @@ void registrarDonacion() {
     	d->valor = malloc(sizeof(char)*100);
     	printf("Ingrese el valor de su donacion: ");
     	fgets(d->valor,100,stdin);
-    	newDonante->pDonaciones = d; // Asigna la estructura Donaciones al puntero pDonaciones del donante
     	mostrarLista(cabecera);
     	getchar();
     	
@@ -98,7 +87,7 @@ void registrarDonacion() {
     	printf("Lo siento mucho usted no puede donar..., por favor registrese antes de donar.\n");
     	while((getchar()) != '\n');
     	getchar();
-    	system("cls");
+    	system("clear");
     	
 	}
 
