@@ -1,5 +1,6 @@
 // main.c
 #include "./libs/donante.h" //importar archivo cabecera
+void salir();
 
 Donante *cabeza = NULL;
 
@@ -32,5 +33,9 @@ int main() {
     } while(opcion != 3);//ciclo para mantener el sistema
 
     return 0;
+}
+
+void salir() {
+    printf("Saliendo del sistema.\n");
 }
 

@@ -4,7 +4,6 @@
 
 
 
-
 typedef struct donaciones{
 	char *fecha;
 	char *tipo;
@@ -27,7 +26,7 @@ Donante* registrarDonante();
 void registrarDonacion();
 Donante* buscar_cedula(Donante *cabeza,int buscar_cedula);
 Donante* agregarDonante(Donante *cabeza,Donante *nuevo_donante);
-void mostrarLista(Donante *cabeza);
-void salir();
+
+
 
 

@@ -3,7 +3,7 @@ OBJS = ./objs/main.o ./objs/donante.o
 BINARY = programa
 CC = gcc
 
-CFLAGS = -c -I/libs
+CFLAGS = -c -L/libs
 
 programa: $(OBJS)
 	gcc -o $(BINARY) $(OBJS)
