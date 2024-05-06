@@ -1,5 +1,5 @@
 // main.c
-#include "./libs/donante.h" //importar archivo cabecera
+#include "donante.h" //importar archivo cabecera
 void salir();
 
 Donante *cabeza = NULL;
@@ -21,7 +21,7 @@ int main() {
                 agregarDonante(cabeza,registrarDonante());
                 break;
             case 2:
-                registrarDonacion();
+                //registrarDonacion();
                 break;
             case 3:
                 salir();

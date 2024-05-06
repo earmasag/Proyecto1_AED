@@ -1,5 +1,5 @@
-#include "./libs/donaciones.h"
-#include "./libs/donante.h"
+#include "donaciones.h"
+#include "donante.h"
 
 extern Donante *cabeza;
 
