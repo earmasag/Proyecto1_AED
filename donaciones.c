@@ -3,7 +3,7 @@
 
 extern Donante *cabeza;
 
-void registrarDonacion() {
+Donaciones* registrarDonacion() {
 	int cedula_registrada,resultado=0;
     printf("Bienvenido donante!.\n");
     printf("Ingrese su cedula:");
@@ -11,7 +11,7 @@ void registrarDonacion() {
 
     Donante *newDonante = buscar_cedula(cabeza ,cedula_registrada);
     if (newDonante!=0){
-    	Donaciones *d = malloc(sizeof(Donaciones));
+    	Donaciones *d = (Donaciones*)(sizeof(Donaciones));
     	printf("Bienvenido\n");
     	d->fecha=malloc(sizeof(char));
     	while ((getchar()) != '\n');
@@ -37,4 +37,11 @@ void registrarDonacion() {
     	
 	}
 
+}
+
+time_t registrarFecha(){
+	struct tm fecha;
+
+	printf("Ingrese la fechas en DD MM AAAA\n");
+	scanf();
 }
