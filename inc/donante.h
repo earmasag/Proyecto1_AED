@@ -4,13 +4,6 @@
 
 
 
-typedef struct donaciones{
-	char *fecha;
-	char *tipo;
-	char *descripcion;
-	char *valor;
-	struct donaciones *next;
-}Donaciones;
 
 typedef struct donante{
 	char *nombre;
@@ -23,9 +16,8 @@ typedef struct donante{
 
 
 Donante* registrarDonante();
-void registrarDonacion();
 Donante* buscar_cedula(Donante *cabeza,int buscar_cedula);
-Donante* agregarDonante(Donante *cabeza,Donante *nuevo_donante);
+
 
 
 

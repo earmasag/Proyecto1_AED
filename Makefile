@@ -1,18 +1,22 @@
-DIR_OBJS = ./objs
-OBJS = ./objs/main.o ./objs/donante.o 
+DIR_BIN = bin
+DIR_SRC = src
+DIR_INC = inc
+HEADERS = $(wildcard $(DIR_INC)/*.h)
+SOURCES = $(wildcard $(DIR_SRC)/*.c)
+OBJETOS = $(patsubst $(DIR_SRC)/%.c, $(DIR_BIN)/%.o, $(SOURCES)) 
 BINARY = programa
 CC = gcc
 
-CFLAGS = -c -I./libs/
+CFLAGS = -I./$(DIR_INC)/
 
-programa: $(OBJS)
-	gcc -o $(BINARY) $(OBJS)
+programa: $(OBJETOS)
+	gcc -o $(BINARY) $^
 
-$(DIR_OBJS)/main.o: main.c
-	$(CC) $(CFLAGS) -o $@ $<
+$(DIR_BIN)/%.o: $(DIR_SRC)/%.c $(HEADERS) | $(DIR_BIN)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(DIR_OBJS)/donante.o: donante.c
-	$(CC) $(CFLAGS) -o $@ $<
+$(DIR_BIN):
+	mkdir bin 
 
 clean: 
-	rm -f $(DIR_OBJS)/*.o programa
+	rm -f $(DIR_BIN)/*.o *.o programa
