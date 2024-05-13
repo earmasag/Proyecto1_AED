@@ -1,5 +1,6 @@
 #include<time.h>
 #include<stdlib.h>
+#include "listaDonantes.h"
 
 enum tipo_donaciones {
 	MONETARIA,
@@ -20,6 +21,7 @@ enum Estado{
 };
 
 typedef struct donaciones{
+	int num_donación;
 	time_t fecha;
 	unsigned short int tipo;
 	enum Destino destino;

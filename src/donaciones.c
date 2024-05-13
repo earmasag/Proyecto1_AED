@@ -1,10 +1,8 @@
 #include "donaciones.h"
-#include "donante.h"
-
 
 time_t ingresarFecha();
 
-extern Donante *cabeza;
+extern Donante *donanteHead;
 
 Donaciones* registrarDonacion() {
 	int cedula_registrada,resultado=0;
@@ -12,7 +10,8 @@ Donaciones* registrarDonacion() {
     printf("Ingrese su cedula:");
     scanf("%d",&cedula_registrada);
 
-    Donante *newDonante = buscar_cedula(cabeza ,cedula_registrada);
+    Donante *newDonante = buscar_cedula(donanteHead ,cedula_registrada);
+
     if (newDonante!=0){
     	Donaciones *d = (Donaciones*)(sizeof(Donaciones));
     	printf("Bienvenido\n");
@@ -48,6 +47,9 @@ Donaciones* registrarDonacion() {
 	}
     else{
     	printf("Lo siento mucho usted no puede donar..., por favor registrese antes de donar.\n");
+		
+		while(getchar() != '\n');
+		getchar();
     	system("clear");
     	
 	}
@@ -57,23 +59,28 @@ Donaciones* registrarDonacion() {
 
 time_t ingresarFecha(){
 
-
+	while ((getchar() != '\n'));
     char fecha_str[50]; // Suponemos que la fecha no será más larga que 50 caracteres
-    struct tm fecha_tm;
+    struct tm fecha_tm = {0};
 	time_t fecha;
+	int dia,mes,ano;
 	do
 	{
-	    // Leer la fecha como una cadena de texto
+	// Leer la fecha como una cadena de texto
     printf("Ingrese la fecha (formato DD/MM/AAAA): ");
     fgets(fecha_str, sizeof(fecha_str), stdin);
 
     // Eliminar el carácter de nueva línea final de la cadena
     fecha_str[strcspn(fecha_str, "\n")] = '\0';
+	printf("%s",fecha_str);
 
     // Convertir la cadena de texto a una estructura tm
-    if (sscanf(fecha_str, "%d/%d/%d", &fecha_tm.tm_mday, &fecha_tm.tm_mon, &fecha_tm.tm_year) != 3) {
+    if (sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3) {
         printf("Formato de fecha incorrecto\n");   
     }
+	fecha_tm.tm_mday = dia;
+	fecha_tm.tm_mon = mes-1;
+	fecha_tm.tm_year = ano - 1900;
 
     // Convertir la estructura tm a time_t
     fecha = mktime(&fecha_tm);
@@ -83,7 +90,7 @@ time_t ingresarFecha(){
         printf("Fecha fuera de rango\n");
     }
 
-	} while ((fecha == -1) || sscanf(fecha_str, "%d/%d/%d", &fecha_tm.tm_mday, &fecha_tm.tm_mon, &fecha_tm.tm_year) != 3);
+	} while ((fecha == -1) || sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3);
 	
 	return fecha;
 

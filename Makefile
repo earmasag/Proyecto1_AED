@@ -9,10 +9,12 @@ CC = gcc
 
 CFLAGS = -I./$(DIR_INC)/
 
+all: programa
+
 programa: $(OBJETOS)
 	gcc -o $(BINARY) $^
 
-$(DIR_BIN)/%.o: $(DIR_SRC)/%.c $(HEADERS) | $(DIR_BIN)
+$(DIR_BIN)/%.o: $(DIR_SRC)/%.c | $(DIR_BIN)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(DIR_BIN):

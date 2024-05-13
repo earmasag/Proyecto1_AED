@@ -1,6 +1,6 @@
-// main.c
-#include "donante.h" //importar archivo cabecera
+
 #include "donaciones.h"
+
 void salir();
 
 Donante *donanteHead = NULL;
@@ -20,7 +20,8 @@ int main() {
 		system("clear");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
-                //agregarDonante(cabeza,registrarDonante());
+                donanteHead = (donanteHead,registrarDonante());
+                
                 break;
             case 2:
                 registrarDonacion();
