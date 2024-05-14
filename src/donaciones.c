@@ -13,7 +13,7 @@ Donaciones* registrarDonacion() {
     Donante *newDonante = buscar_cedula(donanteHead ,cedula_registrada);
 
     if (newDonante!=0){
-    	Donaciones *d = (Donaciones*)(sizeof(Donaciones));
+    	Donaciones *d = (Donaciones*)malloc(sizeof(Donaciones));
     	printf("Bienvenido\n");
     	
     	

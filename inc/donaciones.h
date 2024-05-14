@@ -21,7 +21,7 @@ enum Estado{
 };
 
 typedef struct donaciones{
-	int num_donación;
+	int num_donacion;
 	time_t fecha;
 	unsigned short int tipo;
 	enum Destino destino;
