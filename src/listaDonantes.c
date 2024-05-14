@@ -17,9 +17,10 @@ Donante *agregarDonante(Donante *cabeza, Donante *nuevo){
     for(aux = cabeza;aux && (nuevo->cedula > aux->cedula);aux = aux->next) prev = aux;
     nuevo->next = aux;
     if(prev == NULL){
-        return nuevo;
+        cabeza = nuevo;
+    } else {
+        prev->next = nuevo;
     }
-    prev->next = nuevo;
     return cabeza;
 }
 
