@@ -1,4 +1,4 @@
-
+#include "txt_manager.h"
 #include "donaciones.h"
 
 void salir();

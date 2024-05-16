@@ -80,7 +80,7 @@ time_t ingresarFecha(){
 
     // Eliminar el carácter de nueva línea final de la cadena
     fecha_str[strcspn(fecha_str, "\n")] = '\0';
-    printf("%s",fecha_str);
+    //printf("%s",fecha_str);
 
     // Convertir la cadena de texto a una estructura tm
     if (sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3) {
@@ -92,7 +92,7 @@ time_t ingresarFecha(){
 
     // Convertir la estructura tm a time_t
     fecha = mktime(&fecha_tm);
-
+    printf("%li",fecha);
     // Verificar si la conversión fue exitosa
     if (fecha == -1) {
         printf("Fecha fuera de rango\n");

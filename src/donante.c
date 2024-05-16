@@ -8,37 +8,36 @@ Donante *registrarDonante() {
 	int size_dir = 120;
 
 	//creando un puntero a mi estructura y asignando memoria 
-	Donante *donantep = (Donante*) malloc(sizeof(Donante));
-	if (donantep == NULL) {
-        printf("Error al asignar memoria.\n");
-        return NULL;
-    }
+	Donante nuevoDonante;
+
 	printf("Bienvenido nuevo donante!.\n");
     printf("Ingrese sus datos por favor!.\n");
 
+	while(getchar() != '\n');
+
     printf("Ingrese su cedula: ");
-	while (scanf("%i",&donantep->cedula) != 1) {
-        while(getchar() != '\n'); // Limpiar el buffer de entrada
+	while (scanf("%i",&nuevoDonante.cedula) != 1) {
+         // Limpiar el buffer de entrada
         printf("Entrada inválida. Por favor, ingrese un número entero: ");
     }
 
 	while ((getchar() != '\n'));
 
-	fflush(stdin);
 	printf("Ingrese su nombre: ");
-	donantep->nombre = asignarValor(size_nombre);
+	nuevoDonante.nombre = asignarValor(size_nombre);
 	
 	printf("Ingrese su telefono celular:");
-	donantep->telefono = asignarValor(size_tlf);
+	nuevoDonante.telefono = asignarValor(size_tlf);
 
 	printf("Ingrese su direcion: ");
-	donantep->direccion = asignarValor(size_dir);
+	nuevoDonante.direccion = asignarValor(size_dir);
+
 
 	printf("Donante registrado con exito!.");
 
 	system("clear");//limpia la pantalla
 	
-	return donantep;
+	return crearNodoDonante(nuevoDonante);
 }
 
 char *asignarValor(int max_char){
@@ -53,4 +52,22 @@ char *asignarValor(int max_char){
     }
 	strcpy(asignar,valor);
 	return asignar;
+}
+
+Donante *crearNodoDonante(Donante donante){
+	Donante *donantep = (Donante*) malloc(sizeof(Donante));
+	if (donantep == NULL) {
+        printf("Error al asignar memoria.\n");
+        return NULL;
+    }
+	donantep->cedula = donante.cedula;
+	donantep->nombre = (char*)malloc(sizeof(donante.nombre));
+	strcpy(donantep->nombre,donante.nombre);
+	donantep->telefono = (char*)malloc(sizeof(donante.telefono));
+	strcpy(donantep->telefono,donante.telefono);
+	donantep->direccion = (char*)malloc(sizeof(donante.direccion));
+	strcpy(donantep->direccion,donante.direccion);
+	donantep->next = NULL;
+	return donantep;
+
 }
