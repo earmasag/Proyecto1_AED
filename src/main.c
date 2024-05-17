@@ -8,7 +8,7 @@ Donaciones *donacionHead = NULL;
 
 int main() {
     int opcion;
-    
+    donanteHead = cargarListaDonantes(donanteHead);
     do {
     	printf("----------BIENVENIDO--AL-SISTEMA-DE-GESTION-DE-DONACIONES---------- \n");//case para las opciones de registro de donantes y donaciones
         printf("[1]. Registrar donante \n");

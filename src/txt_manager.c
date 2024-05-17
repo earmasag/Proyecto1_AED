@@ -18,6 +18,7 @@ Donante *cargarListaDonantes(Donante *HEAD){
             printf("Error al leer la linea\n");
             
         }
+        
     }
     
 }

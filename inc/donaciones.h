@@ -1,6 +1,7 @@
 #include<time.h>
 #include<stdlib.h>
-#include "listaDonantes.h"
+
+
 
 enum tipo_donaciones {
 	MONETARIA,

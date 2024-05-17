@@ -3,4 +3,6 @@
 #include<stdlib.h>
 #include "donante.h"
 
+Donante *cargarListaDonantes(Donante *HEAD);
+
 
