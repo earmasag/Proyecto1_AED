@@ -1,5 +1,8 @@
+#ifndef donaciones
+#define donaciones
 #include<time.h>
 #include<stdlib.h>
+#include "donante.h"
 #include "listaDonantes.h"
 
 enum tipo_donaciones {
@@ -21,7 +24,7 @@ enum Estado{
 	DISPONIBLE
 };
 
-typedef struct donaciones{
+typedef struct donacion{
 	int num_donacion;
 	time_t fecha;
 	unsigned short int tipo;
@@ -29,7 +32,9 @@ typedef struct donaciones{
 	enum Estado estado;
 	char *descripcion;
 	float valor;
-	struct donaciones *next;
+	struct donacion *next;
 }Donaciones;
 
 Donaciones* registrarDonacion();
+
+#endif
