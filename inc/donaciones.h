@@ -28,13 +28,13 @@ typedef struct donacion{
 	int num_donacion;
 	time_t fecha;
 	unsigned short int tipo;
-	enum Destino destino;
-	enum Estado estado;
-	char *descripcion;
+	unsigned short int destino;
+	unsigned short int estado;
 	float valor;
+	char *descripcion;
 	struct donacion *next;
 }Donaciones;
-
+Donaciones *crearNodoDonacion(Donaciones nuevaDonacion);
 Donaciones* registrarDonacion();
 
 #endif

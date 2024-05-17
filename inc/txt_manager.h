@@ -5,7 +5,9 @@
 #include<stdlib.h>
 #include "donante.h"
 #include "listaDonantes.h"
+#include "donaciones.h"
 
 Donante *cargarListaDonantes(Donante *HEAD);
+Donaciones *cargarListaDonaciones(Donaciones *HEAD);
 
 #endif

@@ -1,5 +1,5 @@
 #include "donaciones.h"
-//#include "listaDonantes.h"
+
 
 time_t ingresarFecha();
 
@@ -102,5 +102,25 @@ time_t ingresarFecha(){
     } while ((fecha == -1) || sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3);
     
     return fecha;
+
+}
+
+Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
+    Donaciones *donacionesp;
+    if((donacionesp = (Donaciones*)malloc(sizeof(Donaciones))) == NULL){
+        printf("Error al asignar memoria\n");
+        return NULL;
+    }
+    
+    donacionesp->num_donacion = nuevaDonacion.num_donacion;
+    donacionesp->tipo = nuevaDonacion.tipo;
+    donacionesp->destino = nuevaDonacion.destino;
+    donacionesp->estado = nuevaDonacion.estado;
+    donacionesp->fecha = nuevaDonacion.fecha;
+    donacionesp->valor = nuevaDonacion.valor;
+    donacionesp->descripcion = (char*)malloc(sizeof(nuevaDonacion.descripcion));
+    strcpy(donacionesp->descripcion,nuevaDonacion.descripcion);
+
+    return donacionesp;
 
 }

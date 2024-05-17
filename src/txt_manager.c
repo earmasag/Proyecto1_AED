@@ -32,7 +32,47 @@ Donante *cargarListaDonantes(Donante *HEAD){
     free(auxStruc.direccion);
     free(auxStruc.nombre);
     free(auxStruc.telefono);
+    fclose(archivo);
     return HEAD;
     
 }
 
+Donaciones *cargarListaDonaciones(Donaciones *HEAD){
+    printf("cargando arhcivo...\n");
+    char linea[120];
+
+    FILE *archivo;
+
+    if((archivo = fopen(NOMBRE_ARCHIVO,"r")) == NULL){
+        printf("Error al abrir el archivo\n");
+        return NULL;
+    }
+
+
+    Donaciones auxStruct;
+    
+    while (strcmp(linea,"DONACIONES\n"))
+        fgets(linea,sizeof(linea),archivo);
+
+    printf("Linea::  %s",linea);
+
+    auxStruct.descripcion = (char*)malloc(120);
+
+    while (fgets(linea,sizeof(linea),archivo)){
+        printf("Linea::  %s",linea);
+        linea[strcspn(linea,"\n")] = '\0';
+
+        if(sscanf(linea,"%i;%li;%hu;%hu;%hu;%f;%s",&auxStruct.num_donacion,&auxStruct.fecha,
+            &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 7){
+            printf("Error al leer la linea: ");
+            printf("%s-----\n",linea);
+        
+        }else{
+            //HEAD = agregarDonante(HEAD,crearNodoDonacion(auxStruct));
+            printf("%d;%li;%i;%i;%i;%f;%s...\n",auxStruct.num_donacion,auxStruct.fecha,
+            auxStruct.tipo,auxStruct.estado,auxStruct.destino,auxStruct.valor,auxStruct.descripcion);
+        }
+    }
+    return HEAD;
+
+}

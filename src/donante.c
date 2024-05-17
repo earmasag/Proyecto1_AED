@@ -68,6 +68,7 @@ Donante *crearNodoDonante(Donante nuevoDonante){
 	donantep->direccion = (char*)malloc(sizeof(nuevoDonante.direccion));
 	strcpy(donantep->direccion,nuevoDonante.direccion);
 	donantep->next = NULL;
+
 	return donantep;
 
 }
