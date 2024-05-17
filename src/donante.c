@@ -54,20 +54,21 @@ char *asignarValor(int max_char){
 	return asignar;
 }
 
-Donante *crearNodoDonante(Donante donante){
+Donante *crearNodoDonante(Donante nuevoDonante){
 	Donante *donantep = (Donante*) malloc(sizeof(Donante));
 	if (donantep == NULL) {
         printf("Error al asignar memoria.\n");
         return NULL;
     }
-	donantep->cedula = donante.cedula;
-	donantep->nombre = (char*)malloc(sizeof(donante.nombre));
-	strcpy(donantep->nombre,donante.nombre);
-	donantep->telefono = (char*)malloc(sizeof(donante.telefono));
-	strcpy(donantep->telefono,donante.telefono);
-	donantep->direccion = (char*)malloc(sizeof(donante.direccion));
-	strcpy(donantep->direccion,donante.direccion);
+	donantep->cedula = nuevoDonante.cedula;
+	donantep->nombre = (char*)malloc(sizeof(nuevoDonante.nombre));
+	strcpy(donantep->nombre,nuevoDonante.nombre);
+	donantep->telefono = (char*)malloc(sizeof(nuevoDonante.telefono));
+	strcpy(donantep->telefono,nuevoDonante.telefono);
+	donantep->direccion = (char*)malloc(sizeof(nuevoDonante.direccion));
+	strcpy(donantep->direccion,nuevoDonante.direccion);
 	donantep->next = NULL;
+
 	return donantep;
 
 }
