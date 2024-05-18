@@ -6,7 +6,7 @@
 void salir();
 
 Donante *donanteHead = NULL;
-Donaciones *donacionHead = NULL;
+headDonacion *donacionHead = NULL;
 
 int main() {
     int opcion;

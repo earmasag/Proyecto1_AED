@@ -27,11 +27,6 @@ Donante *cargarListaDonantes(Donante *HEAD){
             HEAD = agregarDonante(HEAD,crearNodoDonante(auxStruc));
             printf("%i, %s, %s, %s...\n",auxStruc.cedula, auxStruc.nombre, auxStruc.telefono, auxStruc.direccion);
         }
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> f99e38d4dabf4ca7766c8cb57fa744ead56ee011
     }
     free(auxStruc.direccion);
     free(auxStruc.nombre);
@@ -66,7 +61,7 @@ Donaciones *cargarListaDonaciones(Donaciones *HEAD){
         printf("Linea::  %s",linea);
         linea[strcspn(linea,"\n")] = '\0';
 
-        if(sscanf(linea,"%i;%li;%hu;%hu;%hu;%f;%s",&auxStruct.num_donacion,&auxStruct.fecha,
+        if(sscanf(linea,"%i;%li;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.fecha,
             &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 7){
             printf("Error al leer la linea: ");
             printf("%s-----\n",linea);

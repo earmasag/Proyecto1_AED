@@ -10,7 +10,6 @@ Donante *agregarDonante(Donante *cabeza, Donante *nuevo){
     if(donanteVacia(cabeza)){
         cabeza = nuevo;
         nuevo->next = NULL;
-        printf("%s",nuevo->nombre);
         return cabeza;
     }
     Donante *aux, *prev = NULL;

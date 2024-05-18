@@ -34,6 +34,13 @@ typedef struct donacion{
 	char *descripcion;
 	struct donacion *next;
 }Donaciones;
+
+typedef struct headDonacion{
+	Donaciones *ini, *fin;
+}headDonacion;
+
+extern Donante *donanteHead;
+
 Donaciones *crearNodoDonacion(Donaciones nuevaDonacion);
 Donaciones* registrarDonacion();
 

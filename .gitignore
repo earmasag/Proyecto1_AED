@@ -1,2 +1,5 @@
-.vscode
-./bin
+/.vscode/
+
+/bin/
+
+programa

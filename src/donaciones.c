@@ -3,7 +3,7 @@
 
 time_t ingresarFecha();
 
-extern Donante *donanteHead;
+
 
 Donaciones* registrarDonacion() {
     int cedula_registrada,resultado=0;
@@ -14,44 +14,42 @@ Donaciones* registrarDonacion() {
     Donante *newDonante = buscar_cedula(donanteHead ,cedula_registrada);
 
     if (newDonante != NULL){
-        Donaciones *d = (Donaciones*)malloc(sizeof(Donaciones));
-        if (d == NULL) {
-            printf("Error al asignar memoria.\n");
-            return NULL;
-        }
+        Donaciones auxstruc;
+
         printf("Bienvenido\n");
         
-        d->fecha = ingresarFecha();
+        auxstruc.fecha = ingresarFecha();
 
         printf("Seleccione el tipo de donación");
         printf("(0). Monetaria \n (1)Material \n (2)Voluntariado");
-        scanf("%hd",&d->tipo);
-        while (d->tipo < MONETARIA || d->tipo > VOLUNTARIADO)
+        scanf("%hd",&auxstruc.tipo);
+        while (auxstruc.tipo < MONETARIA || auxstruc.tipo > VOLUNTARIADO)
         {
             printf("Dato ingresado invalido\n Intente de nuevo...");
-            scanf("%hd",&d->tipo);
+            scanf("%hd",&auxstruc.tipo);
         }
 
-        if(d->tipo == 0){
+        if(auxstruc.tipo == 0){
             printf("Cuanto dinero esta donando?:  ");
-            scanf("%f", &d->valor);
+            scanf("%f", &auxstruc.valor);
         }
-        else if (d->tipo == 1)
+        else if (auxstruc.tipo == 1)
         {
             char descripcion[100];
             printf("Agregue una descripción");
             fgets(descripcion,100,stdin);
-            d->descripcion = (char*)malloc(strlen(descripcion) + 1);
-            if (d->descripcion == NULL) {
+            auxstruc.descripcion = (char*)malloc(strlen(descripcion) + 1);
+            if (auxstruc.descripcion == NULL) {
                 printf("Error al asignar memoria.\n");
-                free(d);
                 return NULL;
             }
-            strcpy(d->descripcion,descripcion);
+            strcpy(auxstruc.descripcion,descripcion);
 
         }
-        d->next = NULL;
-        d->estado = 1;      
+        auxstruc.next = NULL;
+        auxstruc.estado = 1;      
+
+        return crearNodoDonacion(auxstruc);
 
     }
     else{
