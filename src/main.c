@@ -17,7 +17,7 @@ int main() {
         printf("Elige una opcion: \n");
         printf("------------------------------------------------------------------ \n");
         scanf("%d", &opcion);
-		system("clear");//comando de la libria de stdlib para limpiar la pantalla
+		system("cls");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
                 donanteHead = (donanteHead,registrarDonante());
@@ -41,4 +41,3 @@ int main() {
 void salir() {
     printf("Saliendo del sistema.\n");
 }
-
