@@ -1,8 +1,24 @@
 #include "donante.h"
 
 char *asignarValor(int max_char);
+int validarCedula(Donante *cabeza, int cedula){
+	if (buscar_cedula(cabeza,cedula)== NULL){
+		return 1;
+	} 
+	return 0;
+}
+int esNumerico(char *str) {
+    while(*str != '\0') {
+        if(*str < '0' || *str > '9') { // Si el carácter no es un dígito, retorna 0 (falso)
+            return 0;
+        }
+        str++;
+    }
+    return 1; // Si todos los caracteres son dígitos, retorna 1 (verdadero)
+}
 
-Donante *registrarDonante() {
+
+Donante *registrarDonante(Donante *donanteHead) {
 	int size_nombre = 30;
 	int size_tlf = 15;
 	int size_dir = 120;
@@ -16,10 +32,19 @@ Donante *registrarDonante() {
 	while(getchar() != '\n');
 
     printf("Ingrese su cedula: ");
-	while (scanf("%i",&nuevoDonante.cedula) != 1) {
-         // Limpiar el buffer de entrada
-        printf("Entrada inválida. Por favor, ingrese un número entero: ");
-    }
+    char cedulaStr[12]; // Asumiendo que la cédula no tiene más de 10 dígitos, más el carácter de nueva línea y el carácter nulo
+    do {
+        fgets(cedulaStr, sizeof(cedulaStr), stdin);
+        cedulaStr[strcspn(cedulaStr, "\n")] = 0; // Elimina el carácter de nueva línea
+        if(!esNumerico(cedulaStr)) {
+            printf("Entrada invalida. Por favor, ingrese un numero entero: ");
+        } else {
+            nuevoDonante.cedula = atoi(cedulaStr); // Convierte la cadena a un entero
+            if(validarCedula(donanteHead, nuevoDonante.cedula) != 1) {
+                printf("Cedula ya registrada. Por favor, ingrese un numero entero: ");
+            }
+        }
+    } while(!esNumerico(cedulaStr) || validarCedula(donanteHead, nuevoDonante.cedula) != 1);
 
 	while ((getchar() != '\n'));
 
@@ -27,7 +52,13 @@ Donante *registrarDonante() {
 	nuevoDonante.nombre = asignarValor(size_nombre);
 	
 	printf("Ingrese su telefono celular:");
-	nuevoDonante.telefono = asignarValor(size_tlf);
+	do {
+	    nuevoDonante.telefono = asignarValor(size_tlf);
+	    if(!esNumerico(nuevoDonante.telefono)) {
+	        printf("Entrada invalida. Por favor, ingrese un numero de telefono valido: ");
+	    }
+	} while(!esNumerico(nuevoDonante.telefono));
+	
 
 	printf("Ingrese su direcion: ");
 	nuevoDonante.direccion = asignarValor(size_dir);
@@ -45,6 +76,7 @@ char *asignarValor(int max_char){
 	char valor[max_char];
 	fflush(stdin);
 	fgets(valor,max_char,stdin);
+	valor[strcspn(valor, "\n")] = 0; // Esta línea elimina el carácter de nueva línea
 	asignar = (char*)malloc(strlen(valor) + 1);
 	if (asignar == NULL) {
         printf("Error al asignar memoria.\n");
@@ -53,6 +85,7 @@ char *asignarValor(int max_char){
 	strcpy(asignar,valor);
 	return asignar;
 }
+
 
 Donante *crearNodoDonante(Donante nuevoDonante){
 	Donante *donantep = (Donante*) malloc(sizeof(Donante));
