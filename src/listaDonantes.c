@@ -36,9 +36,10 @@ Donante* buscar_cedula(Donante *cabeza,int buscar_cedula){
 
 }
 
-void imprimir(Donante *cabeza){
+void imprimirDonantes(Donante *cabeza){
     Donante *aux;
-    for(aux=cabeza;aux;aux->next){
+    for(aux=cabeza; aux; aux = aux->next){
         printf("%i; %s; %s; %s -->\n",aux->cedula,aux->nombre, aux->telefono, aux->direccion);
     }
+    printf("\n\n\n");
 }

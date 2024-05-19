@@ -12,7 +12,7 @@ CFLAGS = -I./$(DIR_INC)/
 all: programa
 
 programa: $(OBJETOS)
-	gcc -o $(BINARY) $^
+	gcc -g -o $(BINARY) $^
 
 $(DIR_BIN)/%.o: $(DIR_SRC)/%.c | $(DIR_BIN)
 	$(CC) $(CFLAGS) -c $< -o $@

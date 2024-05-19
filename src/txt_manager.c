@@ -1,6 +1,5 @@
 #include "txt_manager.h"
 
-
 const char NOMBRE_ARCHIVO[] = "./txt/ARCHIVO.txt";
 //extern Donante *donanteHead;
 
@@ -36,7 +35,8 @@ Donante *cargarListaDonantes(Donante *HEAD){
     
 }
 
-Donaciones *cargarListaDonaciones(Donaciones *HEAD){
+headDonacion *cargarListaDonaciones(headDonacion *HEAD){
+
     printf("cargando arhcivo...\n");
     char linea[120];
 
@@ -61,17 +61,46 @@ Donaciones *cargarListaDonaciones(Donaciones *HEAD){
         printf("Linea::  %s",linea);
         linea[strcspn(linea,"\n")] = '\0';
 
-        if(sscanf(linea,"%i;%li;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.fecha,
-            &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 7){
+        if(sscanf(linea,"%i;%i;%li;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.cedula_donante,&auxStruct.fecha,
+            &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 8){
             printf("Error al leer la linea: ");
             printf("%s-----\n",linea);
         
         }else{
-            //HEAD = agregarDonante(HEAD,crearNodoDonacion(auxStruct));
+            HEAD = agregarDonacion(HEAD,crearNodoDonacion(auxStruct));
             printf("%d;%li;%i;%i;%i;%f;%s...\n",auxStruct.num_donacion,auxStruct.fecha,
             auxStruct.tipo,auxStruct.estado,auxStruct.destino,auxStruct.valor,auxStruct.descripcion);
         }
     }
     return HEAD;
 
+}
+
+int numeroDonacion(){
+    FILE *archivo;
+    if((archivo = fopen(NOMBRE_ARCHIVO,"r")) == NULL){
+        printf("Error al abrir el archivo");
+        return -1;
+    }
+    char ultimaLinea[200], linea[200];
+    int numero;
+    while(fgets(linea,sizeof(linea),archivo)){
+        strcpy(ultimaLinea,linea);
+    }
+    sscanf(ultimaLinea,"%i;",&numero);
+    return numero + 1;
+
+}
+
+int guadarDonacion(Donaciones nuevaDonacion){
+    FILE *archivo;
+    if((archivo = fopen(NOMBRE_ARCHIVO,"a")) == NULL){
+        printf("Error al abri el archivo\n");
+        return -1;
+    }
+    fseek(archivo,0,SEEK_END);
+    fprintf(archivo,"%i;%i;%li;%hu;%hu;%hu;%f;%s\n",nuevaDonacion.num_donacion,nuevaDonacion.cedula_donante,
+    nuevaDonacion.fecha,nuevaDonacion.tipo,nuevaDonacion.estado,nuevaDonacion.destino,nuevaDonacion.valor,nuevaDonacion.descripcion);
+    fclose(archivo);
+    return 1;
 }

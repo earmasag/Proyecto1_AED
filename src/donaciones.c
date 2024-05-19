@@ -1,41 +1,43 @@
 #include "donaciones.h"
-
+#include "listaDonaciones.h"
+#include "txt_manager.h"
 
 time_t ingresarFecha();
 
 
-
-Donaciones* registrarDonacion() {
+headDonacion* registrarDonacion(headDonacion *HEAD) {
     int cedula_registrada,resultado=0;
     printf("Bienvenido donante!.\n");
     printf("Ingrese su cedula:");
     scanf("%d",&cedula_registrada);
 
-    Donante *newDonante = buscar_cedula(donanteHead ,cedula_registrada);
+    Donante *donador = buscar_cedula(donanteHead ,cedula_registrada);
 
-    if (newDonante != NULL){
+    if (donador != NULL){
         Donaciones auxstruc;
-
+        auxstruc.cedula_donante = donador->cedula;
         printf("Bienvenido\n");
         
         auxstruc.fecha = ingresarFecha();
 
-        printf("Seleccione el tipo de donación");
-        printf("(0). Monetaria \n (1)Material \n (2)Voluntariado");
+        printf("Seleccione el tipo de donación\n");
+        printf("(1).Monetaria \n (2)Material \n (3)Voluntariado\n");
         scanf("%hd",&auxstruc.tipo);
-        while (auxstruc.tipo < MONETARIA || auxstruc.tipo > VOLUNTARIADO)
-        {
+
+        while (auxstruc.tipo < 1  || auxstruc.tipo > 3){
             printf("Dato ingresado invalido\n Intente de nuevo...");
             scanf("%hd",&auxstruc.tipo);
         }
 
-        if(auxstruc.tipo == 0){
+        if(auxstruc.tipo == 1){
             printf("Cuanto dinero esta donando?:  ");
             scanf("%f", &auxstruc.valor);
+            auxstruc.descripcion = (char*)malloc(sizeof(char));
+            strcpy(auxstruc.descripcion," ");
         }
-        else if (auxstruc.tipo == 1)
-        {
+        else if (auxstruc.tipo == 2 || auxstruc.tipo == 3){
             char descripcion[100];
+            while(getchar() != '\n');
             printf("Agregue una descripción");
             fgets(descripcion,100,stdin);
             auxstruc.descripcion = (char*)malloc(strlen(descripcion) + 1);
@@ -48,8 +50,10 @@ Donaciones* registrarDonacion() {
         }
         auxstruc.next = NULL;
         auxstruc.estado = 1;      
-
-        return crearNodoDonacion(auxstruc);
+        auxstruc.num_donacion = numeroDonacion();
+        
+        guadarDonacion(auxstruc);
+        return agregarDonacion(HEAD, crearNodoDonacion(auxstruc));
 
     }
     else{
@@ -91,7 +95,7 @@ time_t ingresarFecha(){
 
     // Convertir la estructura tm a time_t
     fecha = mktime(&fecha_tm);
-    printf("%li",fecha);
+    //printf("%li",fecha);
     // Verificar si la conversión fue exitosa
     if (fecha == -1) {
         printf("Fecha fuera de rango\n");
@@ -104,6 +108,7 @@ time_t ingresarFecha(){
 }
 
 Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
+
     Donaciones *donacionesp;
     if((donacionesp = (Donaciones*)malloc(sizeof(Donaciones))) == NULL){
         printf("Error al asignar memoria\n");
@@ -121,4 +126,37 @@ Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
 
     return donacionesp;
 
+}
+
+
+void adminitrarDonaciones(headDonacion *HEAD){
+    int num_donacion;
+    Donaciones *edit_donacion;
+    int salida = 1;
+    char destinos[][20] = {"Alimento", "Medicinas", "Mantenimiento", "Reparaciones", "Otras"};
+    do
+    {
+        printf("Por favor,\nIngrese el numero de donación que desea editar: ");
+        scanf("%i",&num_donacion);
+
+        edit_donacion = buscarDonacion(HEAD, num_donacion);
+
+        if(edit_donacion == NULL){
+            printf("No se encontro el numero numero de doncacion ingreado\n");
+            printf("Desea intentar de nuevo?  (1)SI (0)NO\n");
+            scanf("%i",&salida);
+            if (salida == 0) return;
+        }
+        
+    } while (edit_donacion == NULL);
+
+    printf("A que esta destinada la donacion?\n");
+    for(int i = 0; i < 5;i++){
+        printf("(%i) %s\n",i+1,destinos[i]);
+    }
+    scanf("%hu", &edit_donacion->destino);
+    edit_donacion->estado = 0;
+    imprimirDonaciones(HEAD);
+    getchar();
+    return;    
 }
