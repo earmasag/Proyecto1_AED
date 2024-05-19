@@ -24,7 +24,7 @@ int main() {
 		system("clear");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
-                donanteHead = (donanteHead,registrarDonante());
+                registrarDonante(donanteHead);
                 
                 break;
             case 2:
@@ -45,4 +45,3 @@ int main() {
 void salir() {
     printf("Saliendo del sistema.\n");
 }
-
