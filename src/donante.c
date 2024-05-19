@@ -1,23 +1,10 @@
 #include "donante.h"
 #include "listaDonantes.h"
+#include "validaciones.h"
 
 int validarCedula(Donante *cabeza, int cedula);
 char *asignarValor(int max_char);
-int validarCedula(Donante *cabeza, int cedula){
-	if (buscar_cedula(cabeza,cedula)== NULL){
-		return 1;
-	} 
-	return 0;
-}
-int esNumerico(char *str) {
-    while(*str != '\0') {
-        if(*str < '0' || *str > '9') { // Si el carácter no es un dígito, retorna 0 (falso)
-            return 0;
-        }
-        str++;
-    }
-    return 1; // Si todos los caracteres son dígitos, retorna 1 (verdadero)
-}
+
 
 extern Donante *donanteHead;
 
