@@ -3,6 +3,21 @@
 
 int validarCedula(Donante *cabeza, int cedula);
 char *asignarValor(int max_char);
+int validarCedula(Donante *cabeza, int cedula){
+	if (buscar_cedula(cabeza,cedula)== NULL){
+		return 1;
+	} 
+	return 0;
+}
+int esNumerico(char *str) {
+    while(*str != '\0') {
+        if(*str < '0' || *str > '9') { // Si el carácter no es un dígito, retorna 0 (falso)
+            return 0;
+        }
+        str++;
+    }
+    return 1; // Si todos los caracteres son dígitos, retorna 1 (verdadero)
+}
 
 extern Donante *donanteHead;
 
@@ -42,7 +57,13 @@ Donante *registrarDonante() {
 	nuevoDonante.nombre = asignarValor(size_nombre);
 	
 	printf("Ingrese su telefono celular:");
-	nuevoDonante.telefono = asignarValor(size_tlf);
+	do {
+	    nuevoDonante.telefono = asignarValor(size_tlf);
+	    if(!esNumerico(nuevoDonante.telefono)) {
+	        printf("Entrada invalida. Por favor, ingrese un numero de telefono valido: ");
+	    }
+	} while(!esNumerico(nuevoDonante.telefono));
+	
 
 	printf("Ingrese su direcion: ");
 	nuevoDonante.direccion = asignarValor(size_dir);
@@ -60,6 +81,7 @@ char *asignarValor(int max_char){
 	char valor[max_char];
 	fflush(stdin);
 	fgets(valor,max_char,stdin);
+	valor[strcspn(valor, "\n")] = 0; // Esta línea elimina el carácter de nueva línea
 	asignar = (char*)malloc(strlen(valor) + 1);
 	if (asignar == NULL) {
         printf("Error al asignar memoria.\n");
