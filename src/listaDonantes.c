@@ -10,7 +10,6 @@ Donante *agregarDonante(Donante *cabeza, Donante *nuevo){
     if(donanteVacia(cabeza)){
         cabeza = nuevo;
         nuevo->next = NULL;
-        printf("%s",nuevo->nombre);
         return cabeza;
     }
     Donante *aux, *prev = NULL;
@@ -35,4 +34,11 @@ Donante* buscar_cedula(Donante *cabeza,int buscar_cedula){
 	}
 	return NULL;//si no encuentra retorna null
 
+}
+
+void imprimir(Donante *cabeza){
+    Donante *aux;
+    for(aux=cabeza;aux;aux->next){
+        printf("%i; %s; %s; %s -->\n",aux->cedula,aux->nombre, aux->telefono, aux->direccion);
+    }
 }
