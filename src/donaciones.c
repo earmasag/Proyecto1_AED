@@ -116,6 +116,7 @@ Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
     }
     
     donacionesp->num_donacion = nuevaDonacion.num_donacion;
+    donacionesp->cedula_donante = nuevaDonacion.cedula_donante;
     donacionesp->tipo = nuevaDonacion.tipo;
     donacionesp->destino = nuevaDonacion.destino;
     donacionesp->estado = nuevaDonacion.estado;
@@ -129,7 +130,7 @@ Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
 }
 
 
-void adminitrarDonaciones(headDonacion *HEAD){
+headDonacion *adminitrarDonaciones(headDonacion *HEAD){
     int num_donacion;
     Donaciones *edit_donacion;
     int salida = 1;
@@ -145,7 +146,7 @@ void adminitrarDonaciones(headDonacion *HEAD){
             printf("No se encontro el numero numero de doncacion ingreado\n");
             printf("Desea intentar de nuevo?  (1)SI (0)NO\n");
             scanf("%i",&salida);
-            if (salida == 0) return;
+            if (salida == 0) return HEAD;
         }
         
     } while (edit_donacion == NULL);
@@ -158,5 +159,5 @@ void adminitrarDonaciones(headDonacion *HEAD){
     edit_donacion->estado = 0;
     imprimirDonaciones(HEAD);
     getchar();
-    return;    
+    return HEAD;    
 }

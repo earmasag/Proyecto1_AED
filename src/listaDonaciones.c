@@ -31,10 +31,10 @@ headDonacion *agregarDonacion(headDonacion *HEAD, Donaciones *nuevaDonacion){
 void imprimirDonaciones(headDonacion *HEAD){
     Donaciones *aux;
     for(aux = HEAD->ini;aux; aux = aux->next){
-        printf("%d;%li;%i;%i;%i;%f;%s--->",aux->num_donacion,aux->fecha,
+        printf("%d;%i,%li;%i;%i;%i;%f;%s--->  \n",aux->num_donacion,aux->cedula_donante,aux->fecha,
             aux->tipo,aux->estado,aux->destino,aux->valor,aux->descripcion);
     }
-    printf("\n\n\n");
+    printf("\n");
 }
 
 Donaciones *buscarDonacion(headDonacion *HEAD, int index){

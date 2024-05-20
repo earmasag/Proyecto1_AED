@@ -47,6 +47,6 @@ extern Donante *donanteHead;
 
 Donaciones *crearNodoDonacion(Donaciones nuevaDonacion);
 Donaciones* registrarDonacion();
-void adminitrarDonaciones(headDonacion *HEAD);
+headDonacion *adminitrarDonaciones(headDonacion *HEAD);
 
 #endif

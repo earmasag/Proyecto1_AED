@@ -2,6 +2,7 @@
 #include "donaciones.h"
 #include "listaDonantes.h"
 #include "donante.h"
+#include "informes.h"
 
 void salir();
 
@@ -22,7 +23,8 @@ int main() {
         printf("[1]. Registrar donante \n");
         printf("[2]. Registrar donacion \n");
         printf("[3]. Administrar Donaciones \n");
-        printf("[4]. Salir\n");
+        printf("[4]. Imprimir Informes \n");
+        printf("[5]. Salir\n");
         printf("Elige una opcion: \n");
         printf("------------------------------------------------------------------ \n");
         scanf("%d", &opcion);
@@ -37,17 +39,20 @@ int main() {
                 actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 3:
-                adminitrarDonaciones(donacionHead);
+                donacionHead = adminitrarDonaciones(donacionHead);
                 actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 4:
+                crearInformes(donacionHead,donanteHead);
+                break;            
+            case 5:
                 salir();
                 break;
             default:
                 printf("Opcion no valida. Por favor, elige una opcion del 1 al 3.\n");//si la opcion no es valida suelta este mensaje
                 break;
         }
-    } while(opcion != 4);//ciclo para mantener el sistema
+    } while(opcion != 5);//ciclo para mantener el sistema
 
     return 0;
 }

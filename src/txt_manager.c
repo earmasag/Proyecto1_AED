@@ -59,7 +59,7 @@ headDonacion *cargarListaDonaciones(headDonacion *HEAD){
         printf("Linea::  %s",linea);
         linea[strcspn(linea,"\n")] = '\0';
 
-        if(sscanf(linea,"%i;%i;%li;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.cedula_donante,&auxStruct.fecha,
+        if(sscanf(linea,"%i;%i;%ld;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.cedula_donante,&auxStruct.fecha,
             &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 8){
             printf("Error al leer la linea: ");
             printf("%s-----\n",linea);
@@ -94,7 +94,7 @@ int guadarDonacion(Donaciones nuevaDonacion){
         return -1;
     }
     fseek(archivo,0,SEEK_END);
-    fprintf(archivo,"%i;%i;%li;%hu;%hu;%hu;%f;%s\n",nuevaDonacion.num_donacion,nuevaDonacion.cedula_donante,
+    fprintf(archivo,"%i;%i;%ld;%hu;%hu;%hu;%f;%s\n",nuevaDonacion.num_donacion,nuevaDonacion.cedula_donante,
     nuevaDonacion.fecha,nuevaDonacion.tipo,nuevaDonacion.estado,nuevaDonacion.destino,nuevaDonacion.valor,nuevaDonacion.descripcion);
     fclose(archivo);
     return 1;
@@ -114,7 +114,7 @@ int actualizarArchivo(headDonacion *headDonacion, Donante *headDonante){
     fprintf(archivo,"\nDONACIONES\n");
     Donaciones *auxDonaciones;
     for(auxDonaciones = headDonacion->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
-        fprintf(archivo,"%i;%i;%li;%hu;%hu;%hu;%f;%s\n",auxDonaciones->num_donacion, auxDonaciones->cedula_donante,
+        fprintf(archivo,"%i;%i;%ld;%hu;%hu;%hu;%f;%s\n",auxDonaciones->num_donacion, auxDonaciones->cedula_donante,
     auxDonaciones->fecha,auxDonaciones->tipo,auxDonaciones->estado,auxDonaciones->destino,auxDonaciones->valor,auxDonaciones->descripcion);
     }
     fclose(archivo);
