@@ -29,14 +29,16 @@ int main() {
 		system("clear");//comando de la libria de stdlib para limpiar la pantalla
         switch(opcion) {
             case 1:
-                registrarDonante(donanteHead);
-                
+                donanteHead = agregarDonante(donanteHead,registrarDonante(donanteHead));
+                actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 2:
-                registrarDonacion(donacionHead);
+                donacionHead = agregarDonacion(donacionHead,registrarDonacion());
+                actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 3:
                 adminitrarDonaciones(donacionHead);
+                actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 4:
                 salir();

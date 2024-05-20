@@ -1,7 +1,7 @@
 #include "txt_manager.h"
 
 const char NOMBRE_ARCHIVO[] = "./txt/ARCHIVO.txt";
-//extern Donante *donanteHead;
+
 
 Donante *cargarListaDonantes(Donante *HEAD){
     FILE *archivo;
@@ -36,8 +36,6 @@ Donante *cargarListaDonantes(Donante *HEAD){
 }
 
 headDonacion *cargarListaDonaciones(headDonacion *HEAD){
-
-    printf("cargando arhcivo...\n");
     char linea[120];
 
     FILE *archivo;
@@ -65,11 +63,8 @@ headDonacion *cargarListaDonaciones(headDonacion *HEAD){
             &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 8){
             printf("Error al leer la linea: ");
             printf("%s-----\n",linea);
-        
         }else{
             HEAD = agregarDonacion(HEAD,crearNodoDonacion(auxStruct));
-            printf("%d;%li;%i;%i;%i;%f;%s...\n",auxStruct.num_donacion,auxStruct.fecha,
-            auxStruct.tipo,auxStruct.estado,auxStruct.destino,auxStruct.valor,auxStruct.descripcion);
         }
     }
     return HEAD;
@@ -103,4 +98,26 @@ int guadarDonacion(Donaciones nuevaDonacion){
     nuevaDonacion.fecha,nuevaDonacion.tipo,nuevaDonacion.estado,nuevaDonacion.destino,nuevaDonacion.valor,nuevaDonacion.descripcion);
     fclose(archivo);
     return 1;
+}
+
+int actualizarArchivo(headDonacion *headDonacion, Donante *headDonante){
+    FILE *archivo;
+    if((archivo = fopen(NOMBRE_ARCHIVO,"w")) == NULL){
+        printf("Error al abrir el archivo\n");
+        return -1;
+    }
+    Donante *auxDonante;
+    fprintf(archivo,"DONANTES\n");
+    for(auxDonante = headDonante; auxDonante; auxDonante = auxDonante->next){
+        fprintf(archivo,"%i;%s;%s;%s\n",auxDonante->cedula,auxDonante->nombre,auxDonante->telefono,auxDonante->direccion);
+    }
+    fprintf(archivo,"\nDONACIONES\n");
+    Donaciones *auxDonaciones;
+    for(auxDonaciones = headDonacion->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
+        fprintf(archivo,"%i;%i;%li;%hu;%hu;%hu;%f;%s\n",auxDonaciones->num_donacion, auxDonaciones->cedula_donante,
+    auxDonaciones->fecha,auxDonaciones->tipo,auxDonaciones->estado,auxDonaciones->destino,auxDonaciones->valor,auxDonaciones->descripcion);
+    }
+    fclose(archivo);
+    return 1;
+
 }

@@ -46,7 +46,7 @@ extern Donante *donanteHead;
 //char destinos[][20] = {"Alimento", "Medicinas", "Mantenimiento", "Reparaciones", "Otras"};
 
 Donaciones *crearNodoDonacion(Donaciones nuevaDonacion);
-headDonacion* registrarDonacion();
+Donaciones* registrarDonacion();
 void adminitrarDonaciones(headDonacion *HEAD);
 
 #endif

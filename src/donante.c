@@ -25,7 +25,7 @@ Donante *registrarDonante() {
 	char cedulaStr[12]; // Asumiendo que la cédula no tiene más de 10 dígitos, más el carácter de nueva línea y el carácter nulo
 	do {
 	    fgets(cedulaStr, sizeof(cedulaStr), stdin);
-	    cedulaStr[strcspn(cedulaStr, "\n")] = 0; // Elimina el carácter de nueva línea
+	    cedulaStr[strcspn(cedulaStr, "\n")] = '\0'; // Elimina el carácter de nueva línea
 	    if(!esNumerico(cedulaStr) || !noEsBlanco(cedulaStr)){
 	        printf("Entrada invalida. Por favor, ingrese un numero entero: ");
 	    }else{
@@ -34,7 +34,7 @@ Donante *registrarDonante() {
 	            printf("Cedula ya registrada. Por favor, ingrese un numero entero: ");
 	        }
 	    }
-		while(getchar() != '\n');
+		
 	} while(!esNumerico(cedulaStr) || !noEsBlanco(cedulaStr) || validarCedula(donanteHead, nuevoDonante.cedula) != 1);
 
 

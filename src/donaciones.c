@@ -5,7 +5,7 @@
 time_t ingresarFecha();
 
 
-headDonacion* registrarDonacion(headDonacion *HEAD) {
+Donaciones* registrarDonacion(headDonacion *HEAD) {
     int cedula_registrada,resultado=0;
     printf("Bienvenido donante!.\n");
     printf("Ingrese su cedula:");
@@ -52,8 +52,8 @@ headDonacion* registrarDonacion(headDonacion *HEAD) {
         auxstruc.estado = 1;      
         auxstruc.num_donacion = numeroDonacion();
         
-        guadarDonacion(auxstruc);
-        return agregarDonacion(HEAD, crearNodoDonacion(auxstruc));
+
+        return crearNodoDonacion(auxstruc);
 
     }
     else{
