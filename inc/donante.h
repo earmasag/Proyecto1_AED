@@ -15,6 +15,6 @@ typedef struct donador{
 }Donante;
 
 Donante *registrarDonante();
-Donante *crearNodoDonante(Donante donante);
+
 
 #endif

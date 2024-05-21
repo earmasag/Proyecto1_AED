@@ -18,13 +18,8 @@ Donante *cargarListaDonantes(Donante *HEAD){
     while (strcmp(fgets(linea,sizeof(linea),archivo),"\n") != 0){
         linea[strcspn(linea,"\n")] = '\0';
 
-        if(sscanf(linea,"%i;%50[^;];%50[^;];%50[^;]",&auxStruc.cedula, auxStruc.nombre, auxStruc.telefono, auxStruc.direccion) != 4){
-            printf("Error al leer la linea: ");
-            printf("%s-----\n",linea);
-            
-        }else{
+        if(sscanf(linea,"%i;%50[^;];%50[^;];%50[^;]",&auxStruc.cedula, auxStruc.nombre, auxStruc.telefono, auxStruc.direccion) == 4){
             HEAD = agregarDonante(HEAD,crearNodoDonante(auxStruc));
-            printf("%i, %s, %s, %s...\n",auxStruc.cedula, auxStruc.nombre, auxStruc.telefono, auxStruc.direccion);
         }
     }
     free(auxStruc.direccion);
@@ -51,39 +46,20 @@ headDonacion *cargarListaDonaciones(headDonacion *HEAD){
     while (strcmp(linea,"DONACIONES\n"))
         fgets(linea,sizeof(linea),archivo);
 
-    printf("Linea::  %s",linea);
-
     auxStruct.descripcion = (char*)malloc(120);
 
     while (fgets(linea,sizeof(linea),archivo)){
-        printf("Linea::  %s",linea);
+        
         linea[strcspn(linea,"\n")] = '\0';
 
         if(sscanf(linea,"%i;%i;%ld;%hu;%hu;%hu;%f;%50[^0]",&auxStruct.num_donacion,&auxStruct.cedula_donante,&auxStruct.fecha,
             &auxStruct.tipo,&auxStruct.estado,&auxStruct.destino,&auxStruct.valor,auxStruct.descripcion) != 8){
-            printf("Error al leer la linea: ");
-            printf("%s-----\n",linea);
         }else{
             HEAD = agregarDonacion(HEAD,crearNodoDonacion(auxStruct));
         }
     }
+    fclose(archivo);
     return HEAD;
-
-}
-
-int numeroDonacion(){
-    FILE *archivo;
-    if((archivo = fopen(NOMBRE_ARCHIVO,"r")) == NULL){
-        printf("Error al abrir el archivo");
-        return -1;
-    }
-    char ultimaLinea[200], linea[200];
-    int numero;
-    while(fgets(linea,sizeof(linea),archivo)){
-        strcpy(ultimaLinea,linea);
-    }
-    sscanf(ultimaLinea,"%i;",&numero);
-    return numero + 1;
 
 }
 

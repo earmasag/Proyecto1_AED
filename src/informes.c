@@ -5,7 +5,7 @@ void informeMateriales(headDonacion *HEAD);
 void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante);
 void informePorDonantes(headDonacion *headDonacion, Donante *headDonante);
 
-char destinos[][20] = {"Alimento", "Medicinas", "Mantenimiento", "Reparaciones", "Otras"};
+char destinos[][20] = {"No destinado","Alimento", "Medicinas", "Mantenimiento", "Reparaciones", "Otras"};
 char tipo_donacion[][15] = {"Monetaria", "Materiales", "Voluntariado"};
 char estados[][20] = {"No Disponible", "Disponible"};
 
@@ -13,35 +13,37 @@ char estados[][20] = {"No Disponible", "Disponible"};
 void crearInformes(headDonacion *headDonacion, Donante *headDonante){
     int op;
     do{
-    printf("Que infomre desea imprimir?\n");
-    printf("(1)Destinos de donaciones.\n");
-    printf("(2)Materiales donados.\n");
-    printf("(3)Todas las donaciones.\n");
-    printf("(4)Donaciones por Donante\n");
-    scanf("%i",&op);
-    if(op < 1 || op > 4) 
-    printf("Ingreso una dato invalido\nEscriba una de las opciones\n");
+        vaciarBuffer();
+        printf("Que infomre desea imprimir?\n");
+        printf("(1)Destinos de donaciones.\n");
+        printf("(2)Materiales donados.\n");
+        printf("(3)Todas las donaciones.\n");
+        printf("(4)Donaciones por Donante\n");
+        op = validarNumero(3);
 
+        switch (op){
+        case 1:
+            informeDestinos(headDonacion);
+            break;
+        case 2:
+            informeMateriales(headDonacion);
+            break;
+        case 3:
+            detalleDonaciones(headDonacion,headDonante);
+            break;
+        case 4:
+            informePorDonantes(headDonacion,headDonante);
+            break;
+        default:
+            printf("Opcion no valida. Por favor, elige una opcion del 1 al 4.\n");//si la opcion no es valida suelta este mensaje
+            getchar();
+            break;
+        }
+        getchar();
+        getchar();
     }while(op < 1 || op > 4);
+}
 
-    switch (op)
-    {
-    case 1:
-        informeDestinos(headDonacion);
-        break;
-    case 2:
-        informeMateriales(headDonacion);
-        break;
-    case 3:
-        detalleDonaciones(headDonacion,headDonante);
-        break;
-    case 4:
-        informePorDonantes(headDonacion,headDonante);
-        break;
-    default:
-        break;
-    }
-}    
 
 
 void informeDestinos(headDonacion *HEAD){
@@ -78,8 +80,6 @@ void informeMateriales(headDonacion *HEAD){
 void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
     if(!headDonaciones || !headDonante) return;
 
-
-
     Donaciones *auxDonaciones;
     Donante *auxDonante;
     char strFecha[20];
@@ -88,14 +88,14 @@ void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
     printf("N° DONACION    CEDULA   NOMBRE  FECHA TIPO  DESTINO   ESTADO   VALOR/CANTIDAD  DESCRIPCION\n");
     for(auxDonaciones = headDonaciones->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
 
-            fecha = localtime(&auxDonaciones->fecha);
-            strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
+        fecha = localtime(&auxDonaciones->fecha);
+        strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
 
-            auxDonante = buscar_cedula(headDonante,auxDonaciones->cedula_donante);
+        auxDonante = buscar_cedula(headDonante,auxDonaciones->cedula_donante);
 
-            printf("%i  %i  %s  %s  %s  %s  %s   %f  %s \n", auxDonaciones->num_donacion, auxDonante->cedula, auxDonante->nombre,
-            strFecha, tipo_donacion[auxDonaciones->tipo],destinos[auxDonaciones->destino], estados[auxDonaciones->estado],auxDonaciones->valor,
-            auxDonaciones->descripcion);
+        printf("%i  %i  %s  %s  %s  %s  %s   %f  %s \n", auxDonaciones->num_donacion, auxDonante->cedula, auxDonante->nombre,
+        strFecha, tipo_donacion[auxDonaciones->tipo],destinos[auxDonaciones->destino], estados[auxDonaciones->estado],auxDonaciones->valor,
+        auxDonaciones->descripcion);
     }
 
 }

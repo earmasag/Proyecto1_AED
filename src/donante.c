@@ -15,30 +15,30 @@ Donante *registrarDonante() {
 
 	//creando un puntero a mi estructura y asignando memoria 
 	Donante nuevoDonante;
-
+	
 	printf("Bienvenido nuevo donante!.\n");
     printf("Ingrese sus datos por favor!.\n");
 
 	while(getchar() != '\n');
 
 	printf("Ingrese su cedula: ");
-	char cedulaStr[12]; // Asumiendo que la cédula no tiene más de 10 dígitos, más el carácter de nueva línea y el carácter nulo
+	char cedulaStr[15]; // Asumiendo que la cédula no tiene más de 10 dígitos, más el carácter de nueva línea y el carácter nulo
 	do {
 	    fgets(cedulaStr, sizeof(cedulaStr), stdin);
+		
 	    cedulaStr[strcspn(cedulaStr, "\n")] = '\0'; // Elimina el carácter de nueva línea
+
 	    if(!esNumerico(cedulaStr) || !noEsBlanco(cedulaStr)){
 	        printf("Entrada invalida. Por favor, ingrese un numero entero: ");
-	    }else{
+	    }
+		else{
 	        nuevoDonante.cedula = atoi(cedulaStr); // Convierte la cadena a un entero
 	        if(validarCedula(donanteHead, nuevoDonante.cedula) != 1) {
 	            printf("Cedula ya registrada. Por favor, ingrese un numero entero: ");
 	        }
 	    }
 		
-	} while(!esNumerico(cedulaStr) || !noEsBlanco(cedulaStr) || validarCedula(donanteHead, nuevoDonante.cedula) != 1);
-
-
-	while ((getchar() != '\n'));
+	} while(!esNumerico(cedulaStr) || !noEsBlanco(cedulaStr) || (validarCedula(donanteHead, nuevoDonante.cedula) != 1));
 
 	printf("Ingrese su nombre: ");
 	nuevoDonante.nombre = asignarValor(size_nombre);
@@ -85,21 +85,3 @@ int validarCedula(Donante *cabeza, int cedula){
 	return 0;
 }
 
-Donante *crearNodoDonante(Donante nuevoDonante){
-	Donante *donantep = (Donante*) malloc(sizeof(Donante));
-	if (donantep == NULL) {
-        printf("Error al asignar memoria.\n");
-        return NULL;
-    }
-	donantep->cedula = nuevoDonante.cedula;
-	donantep->nombre = (char*)malloc(sizeof(nuevoDonante.nombre));
-	strcpy(donantep->nombre,nuevoDonante.nombre);
-	donantep->telefono = (char*)malloc(sizeof(nuevoDonante.telefono));
-	strcpy(donantep->telefono,nuevoDonante.telefono);
-	donantep->direccion = (char*)malloc(sizeof(nuevoDonante.direccion));
-	strcpy(donantep->direccion,nuevoDonante.direccion);
-	donantep->next = NULL;
-
-	return donantep;
-
-}

@@ -1,6 +1,10 @@
 #include "listaDonaciones.h"
 
+int numeroDonacion(headDonacion *HEAD){
+    if(!HEAD->ini) return -1;
 
+    return HEAD->fin->num_donacion + 1;
+}
 
 headDonacion *crearHEADdonaciones(){
     headDonacion *HEAD;
@@ -46,4 +50,26 @@ Donaciones *buscarDonacion(headDonacion *HEAD, int index){
         }
     }
     return NULL;
+}
+
+Donaciones *crearNodoDonacion(Donaciones nuevaDonacion){
+
+    Donaciones *donacionesp;
+    if((donacionesp = (Donaciones*)malloc(sizeof(Donaciones))) == NULL){
+        printf("Error al asignar memoria\n");
+        return NULL;
+    }
+    
+    donacionesp->num_donacion = nuevaDonacion.num_donacion;
+    donacionesp->cedula_donante = nuevaDonacion.cedula_donante;
+    donacionesp->tipo = nuevaDonacion.tipo;
+    donacionesp->destino = nuevaDonacion.destino;
+    donacionesp->estado = nuevaDonacion.estado;
+    donacionesp->fecha = nuevaDonacion.fecha;
+    donacionesp->valor = nuevaDonacion.valor;
+    donacionesp->descripcion = (char*)malloc(sizeof(nuevaDonacion.descripcion));
+    strcpy(donacionesp->descripcion,nuevaDonacion.descripcion);
+
+    return donacionesp;
+
 }

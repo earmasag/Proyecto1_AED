@@ -36,6 +36,25 @@ Donante* buscar_cedula(Donante *cabeza,int buscar_cedula){
 
 }
 
+Donante *crearNodoDonante(Donante nuevoDonante){
+	Donante *donantep = (Donante*) malloc(sizeof(Donante));
+	if (donantep == NULL) {
+        printf("Error al asignar memoria.\n");
+        return NULL;
+    }
+	donantep->cedula = nuevoDonante.cedula;
+	donantep->nombre = (char*)malloc(sizeof(nuevoDonante.nombre));
+	strcpy(donantep->nombre,nuevoDonante.nombre);
+	donantep->telefono = (char*)malloc(sizeof(nuevoDonante.telefono));
+	strcpy(donantep->telefono,nuevoDonante.telefono);
+	donantep->direccion = (char*)malloc(sizeof(nuevoDonante.direccion));
+	strcpy(donantep->direccion,nuevoDonante.direccion);
+	donantep->next = NULL;
+
+	return donantep;
+
+}
+
 void imprimirDonantes(Donante *cabeza){
     Donante *aux;
     for(aux=cabeza; aux; aux = aux->next){
