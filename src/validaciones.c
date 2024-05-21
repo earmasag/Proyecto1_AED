@@ -26,6 +26,24 @@ void vaciarBuffer(){
     while (getchar() != '\n');    
 }
 
+//Esta funcion es propia del archivo
+//Se usa para asignar valores a los punteros char* de las estructuras
+char *asignarValor(int max_char){
+	char *asignar;
+	char valor[max_char];
+	fflush(stdin);
+	fgets(valor,max_char,stdin);
+	valor[strcspn(valor, "\n")] = 0; // Esta línea elimina el carácter de nueva línea
+	asignar = (char*)malloc(strlen(valor)*sizeof(char));
+	if (asignar == NULL) {
+        printf("Error al asignar memoria.\n");
+        return NULL;
+    }
+	strcpy(asignar,valor);
+	return asignar;
+}
+
+
 int validarNumero(int tamano){
     char c[tamano];
 

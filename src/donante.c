@@ -3,12 +3,13 @@
 #include "validaciones.h"
 
 int validarCedula(Donante *cabeza, int cedula);
-char *asignarValor(int max_char);
 
 
-extern Donante *donanteHead;
+//extern Donante *donanteHead;
 
-Donante *registrarDonante() {
+//Esta funcion recibe la cabeza de la estructura de los donantes
+//Pide al usuario los datos del donante y retorna un nodo de tipo Donante
+Donante *registrarDonante(Donante *donanteHead) {
 	int size_nombre = 30;
 	int size_tlf = 15;
 	int size_dir = 120;
@@ -22,8 +23,9 @@ Donante *registrarDonante() {
 	while(getchar() != '\n');
 
 	printf("Ingrese su cedula: ");
-	char cedulaStr[15]; // Asumiendo que la cédula no tiene más de 10 dígitos, más el carácter de nueva línea y el carácter nulo
-	do {
+	char cedulaStr[15]; 
+
+	do{
 	    fgets(cedulaStr, sizeof(cedulaStr), stdin);
 		
 	    cedulaStr[strcspn(cedulaStr, "\n")] = '\0'; // Elimina el carácter de nueva línea
@@ -42,6 +44,7 @@ Donante *registrarDonante() {
 
 	printf("Ingrese su nombre: ");
 	nuevoDonante.nombre = asignarValor(size_nombre);
+	
 	
 	printf("Ingrese su telefono celular:");
 	do {
@@ -63,21 +66,11 @@ Donante *registrarDonante() {
 	return crearNodoDonante(nuevoDonante);
 }
 
-char *asignarValor(int max_char){
-	char *asignar;
-	char valor[max_char];
-	fflush(stdin);
-	fgets(valor,max_char,stdin);
-	valor[strcspn(valor, "\n")] = 0; // Esta línea elimina el carácter de nueva línea
-	asignar = (char*)malloc(strlen(valor) + 1);
-	if (asignar == NULL) {
-        printf("Error al asignar memoria.\n");
-        return NULL;
-    }
-	strcpy(asignar,valor);
-	return asignar;
-}
 
+
+//Esta funcnion valida si la cedula ya esta registada
+//retorna 0 si esta en la lista
+//retorna 1 si no se encuentra
 int validarCedula(Donante *cabeza, int cedula){
 	if (buscar_cedula(cabeza,cedula)== NULL){
 		return 1;

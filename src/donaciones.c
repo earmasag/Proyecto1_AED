@@ -4,10 +4,8 @@
 
 time_t ingresarFecha();
 
-/*
-    Recibe por parametro un puntero a la estructura de donaciones
-    Pide los datos al usuario para registrar las donación
-*/
+//  Recibe por parametro un puntero a la estructura de donaciones
+//  Pide los datos al usuario para registrar las donación
 Donaciones* registrarDonacion(headDonacion *HEAD) {
 
     int cedula;
@@ -35,39 +33,30 @@ Donaciones* registrarDonacion(headDonacion *HEAD) {
 
         if(auxstruc.tipo == 0){
             vaciarBuffer();
-            printf("Cuanto dinero esta donando?:  ");
+            printf("Cuanto dinero esta donando?: \n");
             auxstruc.valor = validarNumero(10);    
-            auxstruc.descripcion = (char*)malloc(sizeof(char));
+            auxstruc.descripcion = asignarValor(2);
             strcpy(auxstruc.descripcion," ");
 
         }
         else if (auxstruc.tipo == 1){
             char descripcion[100];
             vaciarBuffer();
-            printf("Que material esta donando? ");
+            printf("Que material esta donando?\n");
 
-            fgets(descripcion,100,stdin);
-            auxstruc.descripcion = (char*)malloc(strlen(descripcion) + 1);
-            if (auxstruc.descripcion == NULL) {
-                printf("Error al asignar memoria.\n");
-                return NULL;
-            }
+            auxstruc.descripcion = asignarValor(strlen(descripcion));
             strcpy(auxstruc.descripcion,descripcion);
 
-            printf("Que cantidad? ");
+            printf("Que cantidad?\n");
             auxstruc.valor = validarNumero(10);
         }
         else{
             char descripcion[100];
             vaciarBuffer();
-            printf("EN que puede ayudar? ");
+            printf("En que puede ayudar?\n");
 
             fgets(descripcion,100,stdin);
-            auxstruc.descripcion = (char*)malloc(strlen(descripcion)*sizeof(char));
-            if (auxstruc.descripcion == NULL) {
-                printf("Error al asignar memoria.\n");
-                return NULL;
-            }
+            auxstruc.descripcion = asignarValor(strlen(descripcion));
             strcpy(auxstruc.descripcion,descripcion);
             auxstruc.valor = 0;
 
@@ -88,7 +77,9 @@ Donaciones* registrarDonacion(headDonacion *HEAD) {
 
 }
 
-
+//Funcion para uso de la libreria
+//Pide una cadana de texto en formato DD/MM/AAAA
+//y retorno un dato tipo time_t correspondiente a la fecha
 time_t ingresarFecha(){
 
     char fecha_str[50]; // Suponemos que la fecha no será más larga que 50 caracteres
@@ -127,7 +118,9 @@ time_t ingresarFecha(){
 
 }
 
-
+//Esta funcion recibe la cabeza de la estructura de donaciones
+//Pide al usuario que introduzca el numero de la donación que esta desea 
+//destinar y destinarla y retorna la cabeza de la estructura
 headDonacion *adminitrarDonaciones(headDonacion *HEAD){
     int num_donacion;
     Donaciones *edit_donacion;
