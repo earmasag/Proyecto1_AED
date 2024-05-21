@@ -9,6 +9,7 @@
 #include "listaDonaciones.h"
 #include "donaciones.h"
 
+void crearArchivo();
 Donante *cargarListaDonantes(Donante *HEAD);
 headDonacion *cargarListaDonaciones(headDonacion *HEAD);
 

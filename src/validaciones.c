@@ -32,24 +32,10 @@ int validarNumero(int tamano){
     do{
         fgets(c,sizeof(c),stdin);
         c[strcspn(c,"\n")] = '\0';
-        if(!esNumerico(c) || !noEsBlanco(c))
-        printf("DATO INVALIDO. Intente nuevamente: ");
+        if(!esNumerico(c) || !noEsBlanco(c)){
+            printf("DATO INVALIDO. Intente nuevamente: \n");
+        }
     } while (!esNumerico(c) || !noEsBlanco(c));
 
     return atoi(c);  
-}
-
-void gotoxy(int x, int y) {
-  // Se valida que los valores de x e y sean válidos
-  if (x < 1 || y < 1) {
-    printf("Error: Las coordenadas x e y deben ser mayores o iguales a 1.\n");
-    return;
-  }
-
-  // Se crea la secuencia ANSI completa
-  char secuencia[20];
-  sprintf(secuencia, "\e[%d;%dH", x, y);
-
-  // Se imprime la secuencia ANSI para posicionar el cursor
-  printf("%s", secuencia);
 }

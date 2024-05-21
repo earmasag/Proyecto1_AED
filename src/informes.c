@@ -11,6 +11,7 @@ char estados[][20] = {"No Disponible", "Disponible"};
 
 
 void crearInformes(headDonacion *headDonacion, Donante *headDonante){
+    system("clear");
     int op;
     do{
         vaciarBuffer();
@@ -48,20 +49,18 @@ void crearInformes(headDonacion *headDonacion, Donante *headDonante){
 
 void informeDestinos(headDonacion *HEAD){
     if(!HEAD) return;
-
-
     Donaciones *aux;
-    printf("N° DONACION    TIPO DE DONACION    DESTINO\n");
+    printf("N° DONACION   TIPO DE DONACION    DESTINO\n");
     for(aux = HEAD->ini; aux; aux = aux->next){
         if(aux->tipo < 2)
-        printf("%i   %s   %s\n", aux->num_donacion, tipo_donacion[aux->tipo], destinos[aux->destino]);        
+        printf("      %-5i |  %-15s  |  %-15s\n", aux->num_donacion, tipo_donacion[aux->tipo], destinos[aux->destino]);        
     }
 }
 
 void informeMateriales(headDonacion *HEAD){
     if(!HEAD) return;
     Donaciones *aux;
-    printf("N°DONACION  FECHA  ARTICULO CANTIDAD\n");
+    printf("N°DONACION |     FECHA     |    ARTICULO                  | CANTIDAD\n");
 
     for(aux = HEAD->ini; aux; aux = aux->next){
         if(aux->tipo == 1){
@@ -70,7 +69,7 @@ void informeMateriales(headDonacion *HEAD){
             struct tm *fecha;
             fecha = localtime(&aux->fecha);
             strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
-            printf("%i    %s    %s     %F\n",aux->num_donacion, strFecha, aux->descripcion, aux->valor);
+            printf("    %-5i  |  %-12s |%-30s|  %.2f\n",aux->num_donacion, strFecha, aux->descripcion, aux->valor);
                        
         }
     }
@@ -85,7 +84,8 @@ void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
     char strFecha[20];
     struct tm *fecha;
             
-    printf("N° DONACION    CEDULA   NOMBRE  FECHA TIPO  DESTINO   ESTADO   VALOR/CANTIDAD  DESCRIPCION\n");
+        printf(" N° DONACION |    CEDULA    |         NOMBRE        |    FECHA   |     TIPO      ");
+    printf("|   DESTINO   |    ESTADO    |VALOR/CANTIDAD|     DESCRIPCION    |\n");
     for(auxDonaciones = headDonaciones->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
 
         fecha = localtime(&auxDonaciones->fecha);
@@ -93,8 +93,9 @@ void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
 
         auxDonante = buscar_cedula(headDonante,auxDonaciones->cedula_donante);
 
-        printf("%i  %i  %s  %s  %s  %s  %s   %f  %s \n", auxDonaciones->num_donacion, auxDonante->cedula, auxDonante->nombre,
-        strFecha, tipo_donacion[auxDonaciones->tipo],destinos[auxDonaciones->destino], estados[auxDonaciones->estado],auxDonaciones->valor,
+        printf("    %-9i|%-14i|%-23s|%-12s|%-15s|%-13s|%-14s|%-14.2f|%-20s|\n", auxDonaciones->num_donacion, 
+        auxDonante->cedula, auxDonante->nombre, strFecha, tipo_donacion[auxDonaciones->tipo],
+        destinos[auxDonaciones->destino], estados[auxDonaciones->estado],auxDonaciones->valor,
         auxDonaciones->descripcion);
     }
 
@@ -114,13 +115,14 @@ void informePorDonantes(headDonacion *headDonacion, Donante *headDonante){
         printf("Donante no encontrado o Donante no posee donaciones\n");
         return;
     }
-    
+        printf(" N° DONACION |    CEDULA    |         NOMBRE        |    FECHA   |     TIPO      ");
+    printf("|   DESTINO   |    ESTADO    |VALOR/CANTIDAD|     DESCRIPCION    |\n");
     for(auxDonaciones = headDonacion->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
 
         if(auxDonaciones->cedula_donante == cedula){
             fecha = localtime(&auxDonaciones->fecha);
             strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
-            printf("%i  %i  %s  %s  %s  %s  %s   %f  %s \n", auxDonaciones->num_donacion, auxDonante->cedula, auxDonante->nombre,
+            printf("    %-9i|%-14i|%-23s|%-12s|%-15s|%-13s|%-14s|%-14.2f|%-20s|\n", auxDonaciones->num_donacion, auxDonante->cedula, auxDonante->nombre,
             strFecha, tipo_donacion[auxDonaciones->tipo],destinos[auxDonaciones->destino], estados[auxDonaciones->estado],auxDonaciones->valor,
             auxDonaciones->descripcion);
         }

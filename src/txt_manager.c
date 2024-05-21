@@ -2,6 +2,24 @@
 
 const char NOMBRE_ARCHIVO[] = "./txt/ARCHIVO.txt";
 
+void crearArchivo(){
+    FILE *archivo;
+    if ((archivo = fopen(NOMBRE_ARCHIVO,"r")) == NULL){
+        if ((archivo = fopen(NOMBRE_ARCHIVO,"w")) == NULL){
+            printf("Error al crear archivo\n");
+            return;
+        }
+        else{
+            char donantes[] = "DONANTES";
+            char donacion[] = "DONACIONES";
+            fprintf(archivo,"%s\n\n%s\n",donantes,donacion);
+            fclose(archivo);
+            return;
+        }        
+        
+    }
+    
+}
 
 Donante *cargarListaDonantes(Donante *HEAD){
     FILE *archivo;

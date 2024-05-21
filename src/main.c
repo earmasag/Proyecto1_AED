@@ -13,16 +13,16 @@ headDonacion *donacionHead;
 
 int main() {
     int opcion;
+    crearArchivo();
     donacionHead = crearHEADdonaciones();
     donanteHead = cargarListaDonantes(donanteHead);
     donacionHead = cargarListaDonaciones(donacionHead);
     
-    gotoxy(5,5);
     do {
-        vaciarBuffer();
+        
         system("clear");
         
-        gotoxy(5,5);
+  
         printf("----------BIENVENIDO--AL-SISTEMA-DE-GESTION-DE-DONACIONES---------- \n");//case para las opciones de registro de donantes y donaciones
         printf("[1]. Registrar donante \n");
         printf("[2]. Registrar donacion \n");
@@ -65,5 +65,6 @@ int main() {
 
 
 void salir() {
+    system("clear");
     printf("Saliendo del sistema.\n");
 }
