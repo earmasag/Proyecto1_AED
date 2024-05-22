@@ -204,5 +204,6 @@ headDonacion *adminitrarDonaciones(headDonacion *HEAD){
             printf("DATO FUERA DE RANGO. Intente de nuevo");
     }while(edit_donacion->destino < 1 || edit_donacion->destino > 6);
     edit_donacion->estado = 0;
+    vaciarBuffer();
     return HEAD;    
 }
