@@ -10,5 +10,6 @@ headDonacion *crearHEADdonaciones();
 Donaciones *buscarDonacion(headDonacion *HEAD, int index);
 Donaciones *crearNodoDonacion(Donaciones nuevaDonacion);
 int numeroDonacion(headDonacion *HEAD);
+int donacionesDisponibles(headDonacion *HEAD);
 
 #endif

@@ -6,7 +6,7 @@ time_t ingresarFecha();
 
 //  Recibe por parametro un puntero a la estructura de donaciones
 //  Pide los datos al usuario para registrar las donación
-Donaciones* registrarDonacion(headDonacion *HEAD) {
+Donaciones* registrarDonacion(headDonacion *HEAD,Donante *donanteHead) {
 
     int cedula;
     vaciarBuffer();
@@ -86,33 +86,39 @@ time_t ingresarFecha(){
     struct tm fecha_tm = {0};
     time_t fecha;
     int dia,mes,ano;
-    do
-    {
-    // Leer la fecha como una cadena de texto
-    printf("Ingrese la fecha (formato DD/MM/AAAA): ");
-    fgets(fecha_str, sizeof(fecha_str), stdin);
 
-    // Eliminar el carácter de nueva línea final de la cadena
-    fecha_str[strcspn(fecha_str, "\n")] = '\0';
-    //printf("%s",fecha_str);
+    do{
+        do{
+            // Leer la fecha como una cadena de texto
+            printf("Ingrese la fecha (formato DD/MM/AAAA): ");
+            fgets(fecha_str, sizeof(fecha_str), stdin);
 
-    // Convertir la cadena de texto a una estructura tm
-    if (sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3) {
-        printf("Formato de fecha incorrecto\n");   
-    }
-    fecha_tm.tm_mday = dia;
-    fecha_tm.tm_mon = mes-1;
-    fecha_tm.tm_year = ano - 1900;
+            // Eliminar el carácter de nueva línea final de la cadena
+            fecha_str[strcspn(fecha_str, "\n")] = '\0';
 
-    // Convertir la estructura tm a time_t
-    fecha = mktime(&fecha_tm);
-    //printf("%li",fecha);
-    // Verificar si la conversión fue exitosa
-    if (fecha == -1) {
-        printf("Fecha fuera de rango\n");
-    }
+            // Convertir la cadena de texto a una estructura tm
+            if (sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3) {
+                printf("Formato de fecha incorrecto\n");   
+            }
+            if(dia < 0 || dia > 31 || mes < 0 || mes > 12)
+                printf("Formato de fecha incorrecto\n"); 
+        }while(dia < 0 || dia > 31 || mes < 0 || mes > 12);
+        
 
-    } while ((fecha == -1) || sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3);
+
+        fecha_tm.tm_mday = dia;
+        fecha_tm.tm_mon = mes-1;
+        fecha_tm.tm_year = ano - 1900;
+
+        // Convertir la estructura tm a time_t
+        fecha = mktime(&fecha_tm);
+
+        // Verificar si la conversión fue exitosa
+        if (fecha == -1) {
+            printf("Fecha fuera de rango\n");
+        }
+
+    }while ((fecha == -1) || sscanf(fecha_str, "%d/%d/%d", &dia, &mes, &ano) != 3);
     
     return fecha;
 
@@ -123,7 +129,7 @@ time_t ingresarFecha(){
 //destinar y destinarla y retorna la cabeza de la estructura
 headDonacion *adminitrarDonaciones(headDonacion *HEAD){
     int num_donacion;
-    Donaciones *edit_donacion;
+    Donaciones *edit_donacion, *aux;
     int salida = 1;
     extern char destinos[][20];
     extern char tipo_donacion[][15];
@@ -133,29 +139,46 @@ headDonacion *adminitrarDonaciones(headDonacion *HEAD){
     do
     {
         vaciarBuffer();
+        printf("Numero de donaciones disponibles \n");
+
+        if(!donacionesDisponibles(HEAD)){
+            system("clear");
+            printf("No hay donaciones disponibles\n\n");
+            getchar();
+            return HEAD;
+        }
+
         printf("Por favor,\nIngrese el numero de donación que desea editar: ");
+        
+
         num_donacion = validarNumero(15);
         edit_donacion = buscarDonacion(HEAD, num_donacion);
+        
+        
 
         if(edit_donacion == NULL){
             printf("\nNo se encontro el numero numero de doncacion ingreado\n");
             printf("Desea intentar de nuevo?  (1)SI (0)NO\n");
+
             do{
                 salida = validarNumero(2);
                 if(salida != 0 && salida != 1)
                     printf("DATO INVALIDO. Intente de nuevo ");
                 
             }while(salida != 0 && salida != 1);
+
             if(salida == 0) return HEAD;
         }
         else if(edit_donacion->estado == 0){
             printf("La donación escogida no esta disponible, ya ha sido asignada\n");
             printf("Desea intentar de nuevo?  (1)SI (0)NO\n");
+
             do{
                 salida = validarNumero(2);
                 if(salida != 0 && salida != 1)
                     printf("DATO INVALIDO. Intente de nuevo ");
             }while(salida != 0 && salida != 1);
+
             if(salida == 0) return HEAD;
         }
         
@@ -164,14 +187,14 @@ headDonacion *adminitrarDonaciones(headDonacion *HEAD){
 	system("clear");
     fecha = localtime(&edit_donacion->fecha);
     strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
-    printf("----------DONACION SELECCIONADA----------\n");
+    printf("                       ----------DONACION SELECCIONADA----------\n\n");
     printf(" N° DONACION |    CEDULA    |    FECHA   |     TIPO      ");
     printf("|   DESTINO   |    ESTADO    |VALOR/CANTIDAD|     DESCRIPCION    |\n");
     printf("    %-9i|%-14i|%-12s|%-15s|%-13s|%-14s|%-14.2f|%-20s|\n", edit_donacion->num_donacion, 
         edit_donacion->cedula_donante, strFecha, tipo_donacion[edit_donacion->tipo],destinos[edit_donacion->destino],
         estados[edit_donacion->estado],edit_donacion->valor,edit_donacion->descripcion);
 
-    printf("A que esta destinada la donacion?\n");
+    printf("\nA que esta destinada la donacion?\n");
     for(int i = 1; i < 6;i++){
         printf("(%i) %s\n",i,destinos[i]);
     }

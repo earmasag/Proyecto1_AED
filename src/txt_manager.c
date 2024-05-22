@@ -1,7 +1,11 @@
+//Este archivo contiene todas las funciones que manejan el archivo TXT
 #include "txt_manager.h"
 
+//Variable global 
 const char NOMBRE_ARCHIVO[] = "./txt/ARCHIVO.txt";
 
+//Esta funcion verifica si el archivo esta creado
+//Si no lo esta lo crea y lo inicia
 void crearArchivo(){
     FILE *archivo;
     if ((archivo = fopen(NOMBRE_ARCHIVO,"r")) == NULL){
@@ -21,6 +25,7 @@ void crearArchivo(){
     
 }
 
+//Esta funcion carga todos los datos de los donates en la lista de donantes
 Donante *cargarListaDonantes(Donante *HEAD){
     FILE *archivo;
     char linea[100];
@@ -48,6 +53,7 @@ Donante *cargarListaDonantes(Donante *HEAD){
     
 }
 
+//Esta funcion carga todos los datos de las donaciones en la cola de donaciones
 headDonacion *cargarListaDonaciones(headDonacion *HEAD){
     char linea[120];
 
@@ -81,19 +87,7 @@ headDonacion *cargarListaDonaciones(headDonacion *HEAD){
 
 }
 
-int guadarDonacion(Donaciones nuevaDonacion){
-    FILE *archivo;
-    if((archivo = fopen(NOMBRE_ARCHIVO,"a")) == NULL){
-        printf("Error al abri el archivo\n");
-        return -1;
-    }
-    fseek(archivo,0,SEEK_END);
-    fprintf(archivo,"%i;%i;%ld;%hu;%hu;%hu;%f;%s\n",nuevaDonacion.num_donacion,nuevaDonacion.cedula_donante,
-    nuevaDonacion.fecha,nuevaDonacion.tipo,nuevaDonacion.estado,nuevaDonacion.destino,nuevaDonacion.valor,nuevaDonacion.descripcion);
-    fclose(archivo);
-    return 1;
-}
-
+//Esta funcion sobre escribe el archivo con la nueva informacion añadida a las listas
 int actualizarArchivo(headDonacion *headDonacion, Donante *headDonante){
     FILE *archivo;
     if((archivo = fopen(NOMBRE_ARCHIVO,"w")) == NULL){

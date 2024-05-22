@@ -5,26 +5,7 @@
 #include "donante.h"
 #include "listaDonantes.h"
 
-/*
-enum tipo_donaciones {
-	MONETARIA,
-	MATERIAL,
-	VOLUNTARIADO
-};
 
-enum Destino {
-	NO,
-	ALIMENTOS,
-	MEDICINAS,
-	MANTENIMIENTO,
-	REPARACIONES
-};
-
-enum Estado{
-	NO_DISPONIBLE,
-	DISPONIBLE
-};
-*/
 typedef struct donacion{
 	int num_donacion;
 	int cedula_donante;
@@ -44,7 +25,7 @@ typedef struct {
 extern Donante *donanteHead;
 
 
-Donaciones* registrarDonacion(headDonacion *HEAD);
+Donaciones* registrarDonacion(headDonacion *HEAD, Donante *donanteHead);
 headDonacion *adminitrarDonaciones(headDonacion *HEAD);
 
 #endif

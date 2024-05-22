@@ -12,7 +12,6 @@
 void crearArchivo();
 Donante *cargarListaDonantes(Donante *HEAD);
 headDonacion *cargarListaDonaciones(headDonacion *HEAD);
-
-int guadarDonacion(Donaciones nuevaDonacion);
 int actualizarArchivo(headDonacion *headDonacion, Donante *headDonante);
+
 #endif

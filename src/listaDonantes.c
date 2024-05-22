@@ -1,11 +1,14 @@
+//Este archivo contiene todas la funciones que manipulas la lista donantes
 #include "listaDonantes.h"
 
-
+//Retoner 1 si la cabeza de la lista esta vacia
+//de lo contraio 0
 int donanteVacia(Donante *cabeza){
     if(cabeza == NULL) return 1;
     else return 0;
 }
 
+//Agrega un nodo donante a la lista
 Donante *agregarDonante(Donante *cabeza, Donante *nuevo){
     if(donanteVacia(cabeza)){
         cabeza = nuevo;
@@ -23,6 +26,9 @@ Donante *agregarDonante(Donante *cabeza, Donante *nuevo){
     return cabeza;
 }
 
+//Busca en la lista por el campo cedula
+//si la encuentra retorna el nodo de la coincidencia
+//de lo contrario retorna null
 Donante* buscar_cedula(Donante *cabeza,int buscar_cedula){
 
 	Donante *actual = cabeza;//variable para moverte por la lista
@@ -36,6 +42,7 @@ Donante* buscar_cedula(Donante *cabeza,int buscar_cedula){
 
 }
 
+//Crea un nodo donante a partir de una estructura estatica
 Donante *crearNodoDonante(Donante nuevoDonante){
 	Donante *donantep = (Donante*) malloc(sizeof(Donante));
 	if (donantep == NULL) {
@@ -55,6 +62,7 @@ Donante *crearNodoDonante(Donante nuevoDonante){
 
 }
 
+//Imprime la lista a partir de la cabeza
 void imprimirDonantes(Donante *cabeza){
     Donante *aux;
     for(aux=cabeza; aux; aux = aux->next){

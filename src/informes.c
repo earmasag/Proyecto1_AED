@@ -1,3 +1,4 @@
+//Este archivo contiene todas las funciones que imprimen lso reportes por pantalla
 #include "informes.h"
 
 void informeDestinos(headDonacion *HEAD);
@@ -63,8 +64,8 @@ void informeMateriales(headDonacion *HEAD){
     if(!HEAD) return;
     system("clear");
     Donaciones *aux;
-
-    printf("N°DONACION |     FECHA     |    ARTICULO                  | CANTIDAD\n");
+    printf("-------------INFORME: ARTICULOS DONADOS -----------\n\n");
+    printf("N°DONACION |   FECHA    |    ARTICULO                  | CANTIDAD|\n");
 
     for(aux = HEAD->ini; aux; aux = aux->next){
         if(aux->tipo == 1){
@@ -73,13 +74,14 @@ void informeMateriales(headDonacion *HEAD){
             struct tm *fecha;
             fecha = localtime(&aux->fecha);
             strftime(strFecha,sizeof(strFecha),"%d/%m/%Y",fecha);
-            printf("    %-5i  |  %-12s |%-30s|  %.2f\n",aux->num_donacion, strFecha, aux->descripcion, aux->valor);
+            printf("      %-5i|%-12s|%-30s|%-9.2f|\n",aux->num_donacion, strFecha, aux->descripcion, aux->valor);
                        
         }
     }
 
 }
 
+//Listado de todas las donaciones
 void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
     if(!headDonaciones || !headDonante) return;
     system("clear");
@@ -87,7 +89,7 @@ void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
     Donante *auxDonante;
     char strFecha[20];
     struct tm *fecha;
-            
+    printf("-----------------INFORME: TODAS LAS DONACIONES--------------\n\n");       
     printf(" N° DONACION |  CEDULA  |     NOMBRE     |    FECHA   |     TIPO      ");
     printf("|   DESTINO   |    ESTADO    |VALOR/CANTIDAD|     DESCRIPCION    |\n");
     for(auxDonaciones = headDonaciones->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
@@ -105,6 +107,9 @@ void detalleDonaciones(headDonacion *headDonaciones, Donante *headDonante){
 
 }
 
+
+//Listado que imprime todas las donaciones del donante que
+//ingrese el usuario
 void informePorDonantes(headDonacion *headDonacion, Donante *headDonante){
     int cedula;
     Donante *auxDonante;
@@ -112,14 +117,15 @@ void informePorDonantes(headDonacion *headDonacion, Donante *headDonante){
     char strFecha[20];
     struct tm *fecha;
     system("clear");
-    printf("Escoja el donate que desea buscar\n");
-    scanf("%i", &cedula);
-
+    printf("Escriba la cedula del donante a buscar: ");
+    cedula = validarNumero(15);
+    system("clear");
     if((auxDonante = buscar_cedula(headDonante,cedula)) == NULL){
         printf("Donante no encontrado o Donante no posee donaciones\n");
         return;
     }
-        printf(" N° DONACION |    CEDULA    |         NOMBRE        |    FECHA   |     TIPO      ");
+    printf("-------------INFORME: DONACIONES POR DONANTES-----------\n\n");
+    printf(" N° DONACION |    CEDULA    |         NOMBRE        |    FECHA   |     TIPO      ");
     printf("|   DESTINO   |    ESTADO    |VALOR/CANTIDAD|     DESCRIPCION    |\n");
     for(auxDonaciones = headDonacion->ini; auxDonaciones; auxDonaciones = auxDonaciones->next){
         if(auxDonaciones->cedula_donante == cedula){

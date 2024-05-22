@@ -1,3 +1,5 @@
+//Archivo principal del programa
+
 #include "txt_manager.h"
 #include "donaciones.h"
 #include "listaDonantes.h"
@@ -8,22 +10,22 @@
 
 void salir();
 
-Donante *donanteHead = NULL;
-headDonacion *donacionHead;
 
-int main() {
+
+//menu de inicio del programa
+int main(){
+    //Cabeza de las estructuras
+    Donante *donanteHead = NULL;
+    headDonacion *donacionHead;
     int opcion;
     crearArchivo();
     donacionHead = crearHEADdonaciones();
     donanteHead = cargarListaDonantes(donanteHead);
     donacionHead = cargarListaDonaciones(donacionHead);
     
-    do {
-        
+    do {   
         system("clear");
-        
-  
-        printf("----------BIENVENIDO--AL-SISTEMA-DE-GESTION-DE-DONACIONES---------- \n");//case para las opciones de registro de donantes y donaciones
+        printf("----------BIENVENIDO--AL-SISTEMA-DE-GESTION-DE-DONACIONES---------- \n");
         printf("[1]. Registrar donante \n");
         printf("[2]. Registrar donacion \n");
         printf("[3]. Administrar Donaciones \n");
@@ -39,7 +41,7 @@ int main() {
                 actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 2:
-                donacionHead = agregarDonacion(donacionHead,registrarDonacion(donacionHead));
+                donacionHead = agregarDonacion(donacionHead,registrarDonacion(donacionHead,donanteHead));
                 actualizarArchivo(donacionHead,donanteHead);
                 break;
             case 3:
@@ -63,7 +65,7 @@ int main() {
 }
 
 
-
+//Funcion de salida
 void salir() {
     system("clear");
     printf("Saliendo del sistema.\n");
