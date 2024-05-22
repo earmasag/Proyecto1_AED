@@ -28,6 +28,8 @@ int donacionesVacia(headDonacion *cabeza){
 //Esta funcion agrega un dodo de donacion
 //al final de la cola y retorna la cabeza de la cola
 headDonacion *agregarDonacion(headDonacion *HEAD, Donaciones *nuevaDonacion){
+    if(!nuevaDonacion) return HEAD;
+    
     if(donacionesVacia(HEAD)){
         HEAD->fin = nuevaDonacion;
         HEAD->ini = nuevaDonacion;

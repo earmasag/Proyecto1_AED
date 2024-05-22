@@ -72,7 +72,7 @@ Donaciones* registrarDonacion(headDonacion *HEAD,Donante *donanteHead) {
         printf("Lo siento mucho usted no puede donar..., por favor registrese antes de donar.\n");
         getchar();
         system("clear");
-        
+        return NULL;
     }
 
 }
