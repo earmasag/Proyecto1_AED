@@ -1,14 +1,20 @@
+#ifndef donante
+#define donante
 #include<string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "validaciones.h"
 
-typedef struct donante{
+
+typedef struct donador{
 	int cedula;
 	char *nombre;
 	char *telefono;
 	char *direccion;
-	struct donante *next;
+	struct donador *next;
 }Donante;
 
 Donante *registrarDonante();
 
+
+#endif
